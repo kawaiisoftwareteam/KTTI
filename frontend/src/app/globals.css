@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-japanese: var(--font-noto-jp), sans-serif;
+  --color-brand-red: #A71728;
+  --color-brand-red-dark: #86101E;
+  --color-brand-red-light: #C22237;
+  --color-brand-black: #0A0A0B;
+  --color-brand-dark: #121316;
+  --color-brand-gray: #71717A;
+  --color-brand-light: #F8F9FA;
+}
+
+:root {
+  --primary: #A71728;
+  --primary-hover: #8D1220;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-outfit), sans-serif;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  color: #171717;
+}
+
+/* All interactive buttons are square */
+button,
+[role="button"],
+a.btn,
+input[type="submit"],
+input[type="button"] {
+  border-radius: 0 !important;
+}
+
+/* ── Door open / close button hover ── */
+.btn-door {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: #ffffff;
+  color: #A71728;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 0 !important;
+}
+
+.btn-door__label {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  color: #ffffff;
+  transition: color 0.35s ease 0.05s;
+}
+
+.btn-door__panel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.btn-door__panel--left {
+  left: 0;
+  transform-origin: left center;
+}
+
+.btn-door__panel--right {
+  right: 0;
+  transform-origin: right center;
+}
+
+.btn-door--brand .btn-door__panel {
+  background: #A71728;
+}
+
+.btn-door--dark .btn-door__panel {
+  background: #0a0a0b;
+}
+
+.btn-door--outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.btn-door--outline .btn-door__panel {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-door--outline .btn-door__label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.btn-door:hover .btn-door__panel--left,
+.btn-door:focus-visible .btn-door__panel--left {
+  transform: translateX(-100%);
+}
+
+.btn-door:hover .btn-door__panel--right,
+.btn-door:focus-visible .btn-door__panel--right {
+  transform: translateX(100%);
+}
+
+.btn-door:hover .btn-door__label,
+.btn-door:focus-visible .btn-door__label {
+  color: #A71728;
+}
+
+.btn-door--outline:hover,
+.btn-door--outline:focus-visible {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+/* Final CTA secondary: white face that still opens to brand text */
+.btn-door--light {
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+}
+
+.btn-door--light .btn-door__panel {
+  background: #efefef;
+}
+
+.btn-door--light .btn-door__label {
+  color: #171717;
+}
+
+.btn-door--light:hover .btn-door__label,
+.btn-door--light:focus-visible .btn-door__label {
+  color: #A71728;
+}
+
+.btn-door:disabled {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.btn-door:disabled .btn-door__panel--left,
+.btn-door:disabled .btn-door__panel--right {
+  transform: none;
+}
+
+/* SSW step cards — staggered entrance */
+.ssw-step-card {
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+}
+
+.ssw-step-card--visible {
+  animation: ssw-step-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes ssw-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Japanese Hub level cards */
+.jp-level-card {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.jp-level-card--visible {
+  animation: jp-level-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes jp-level-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A71728;
+}
+
+/* Glassmorphism helpers */
+.glass-nav-transparent {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.glass-nav-scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.glass-badge {
+  background: rgba(167, 23, 40, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(167, 23, 40, 0.2);
+}
+
+/* Subtle image ken-burns zoom */
+@keyframes kenburns {
+  0% {
+    transform: scale(1.0);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenburns 12s ease-in-out infinite alternate;
+}
+
+/* Text glow */
+.text-shadow-hero {
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
