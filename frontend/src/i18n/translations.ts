@@ -371,6 +371,13 @@ export const translations = {
             "Transparent, ethical, and complete assistance through embassy interviews, documentation, flight logistics, and post-arrival settlement.",
         },
       ],
+      guaranteeEyebrow: "OUR PROMISE • 就職保証",
+      guaranteeTitle: "job placement",
+      guaranteeLead:
+        "Follow the institute — complete training, attendance, and interviews as guided — and we stand behind your career with",
+      guaranteeSupportTitle: "We stay with you in Japan.",
+      guaranteeSupport:
+        "If any issue arises with your company after you arrive, our team will step in and negotiate on your behalf. You are never left alone.",
     },
     japanBanner: {
       eyebrow: "INTERNATIONAL CAREER CORRIDOR",
@@ -959,6 +966,13 @@ export const translations = {
             "大使館面接、書類準備、渡航手配、到着後の生活定着まで、透明性と倫理性をもって全面的に支援します。",
         },
       ],
+      guaranteeEyebrow: "OUR PROMISE • 就職保証",
+      guaranteeTitle: "保証します",
+      guaranteeLead:
+        "当校の指導どおりに訓練・出席・面接を完了していただければ、就職は",
+      guaranteeSupportTitle: "日本到着後も、ずっと伴走します。",
+      guaranteeSupport:
+        "渡日後に受入企業との間で問題が起きても、当校が間に入り交渉します。一人で抱え込む必要はありません。",
     },
     japanBanner: {
       eyebrow: "国際キャリアの架け橋",

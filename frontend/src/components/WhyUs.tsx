@@ -2,7 +2,7 @@
 
 import React from "react";
 import { WHY_US_POINTS } from "@/data/content";
-import { MessageSquareText, Briefcase, GraduationCap, Users, Building2, ShieldCheck } from "lucide-react";
+import { MessageSquareText, Briefcase, GraduationCap, Users, Building2, ShieldCheck, Handshake } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 interface WhyUsProps {
@@ -92,6 +92,48 @@ export default function WhyUs({ onOpenApply }: WhyUsProps) {
               <div className="w-0 group-hover:w-full h-1 bg-[#A71728] rounded-full transition-all duration-300" />
             </div>
           ))}
+        </div>
+
+        {/* 100% JOB PLACEMENT PROMISE */}
+        <div className="mt-16 lg:mt-20 relative overflow-hidden bg-white border border-[#A71728]/20 shadow-[0_20px_50px_-28px_rgba(167,23,40,0.35)]">
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#A71728]" />
+          <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-[#A71728]/[0.06] pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
+            <div className="lg:col-span-4 px-8 py-10 sm:py-12 text-center lg:text-left">
+              <span className="inline-block text-[10px] sm:text-xs font-mono font-bold tracking-[0.22em] uppercase text-[#A71728] mb-4">
+                {t.whyUs.guaranteeEyebrow}
+              </span>
+              <div className="font-black text-[#A71728] text-7xl sm:text-8xl lg:text-[7.5rem] leading-[0.85] tracking-tighter">
+                100%
+              </div>
+              <p className="mt-3 text-base sm:text-lg font-black tracking-wide uppercase text-neutral-950">
+                {t.whyUs.guaranteeTitle}
+              </p>
+            </div>
+
+            <div className="lg:col-span-8 px-8 pb-10 lg:py-12 lg:pr-12 flex flex-col gap-6">
+              <p className="text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed">
+                {t.whyUs.guaranteeLead}{" "}
+                <span className="font-black text-[#A71728]">100%</span>{" "}
+                {t.whyUs.guaranteeTitle}.
+              </p>
+
+              <div className="flex items-start gap-4 bg-[#A71728]/[0.06] border border-[#A71728]/15 p-5">
+                <div className="w-11 h-11 bg-[#A71728] flex items-center justify-center shrink-0">
+                  <Handshake className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-base sm:text-lg font-bold tracking-tight text-neutral-950">
+                    {t.whyUs.guaranteeSupportTitle}
+                  </h4>
+                  <p className="text-sm sm:text-base text-neutral-600 mt-1.5 leading-relaxed">
+                    {t.whyUs.guaranteeSupport}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
