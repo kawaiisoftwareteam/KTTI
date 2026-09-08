@@ -148,7 +148,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           <LangToggle />
 
           <a
-            href="https://wa.me/8801700000000"
+            href="https://wa.me/8801817047247"
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center gap-2 text-[15px] font-bold px-3.5 py-2.5 rounded-none transition-all group whitespace-nowrap border ${
@@ -219,7 +219,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
 
             <div className="pt-4 mt-2 border-t border-neutral-100 flex flex-col gap-2">
               <a
-                href="https://wa.me/8801700000000"
+                href="https://wa.me/8801817047247"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 text-center font-bold text-base rounded-none flex items-center justify-center gap-2"

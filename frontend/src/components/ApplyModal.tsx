@@ -54,7 +54,7 @@ export default function ApplyModal({
         .replace("{program}", programLabel)
         .replace("{name}", fullName || t.applyModal.interestedCandidate)
     );
-    window.open(`https://wa.me/8801700000000?text=${text}`, "_blank");
+    window.open(`https://wa.me/8801817047247?text=${text}`, "_blank");
   };
 
   const handleReset = () => {

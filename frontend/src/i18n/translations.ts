@@ -530,6 +530,22 @@ export const translations = {
       hotlineSuffix: "(Hotline)",
       tokyoLiaison: "Tokyo Liaison Network (Japan)",
       scrollTopAria: "Scroll to top",
+      locationsHeading: "OUR LOCATIONS",
+      contactHeading: "CONTACT",
+      locations: [
+        {
+          name: "Training Center (Uttara)",
+          address: "House-59-61, Road 13 (Ranavola Avenue), Sector 10, Uttara, Dhaka-1230",
+        },
+        {
+          name: "Training Center (Birulia)",
+          address: "House-26/2, Block-C, Kaliakoir, Akrain, Birulia, Savar",
+        },
+        {
+          name: "Head Office",
+          address: "Taj Casilina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
+        },
+      ],
     },
     applyModal: {
       eyebrow: "ADMISSIONS & CAREER COUNSELING",
@@ -1125,6 +1141,22 @@ export const translations = {
       hotlineSuffix: "（ホットライン）",
       tokyoLiaison: "東京連携ネットワーク（日本）",
       scrollTopAria: "ページ先頭へ戻る",
+      locationsHeading: "拠点",
+      contactHeading: "お問い合わせ",
+      locations: [
+        {
+          name: "トレーニングセンター（ウッタラ）",
+          address: "House-59-61, Road 13 (Ranavola Avenue), Sector 10, Uttara, Dhaka-1230",
+        },
+        {
+          name: "トレーニングセンター（ビルリア）",
+          address: "House-26/2, Block-C, Kaliakoir, Akrain, Birulia, Savar",
+        },
+        {
+          name: "本社",
+          address: "Taj Casilina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
+        },
+      ],
     },
     applyModal: {
       eyebrow: "入学・キャリア相談",

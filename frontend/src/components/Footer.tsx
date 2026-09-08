@@ -3,8 +3,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Mail, MapPin, Globe, ArrowUp } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowUp } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONES,
+  MAILTO_URL,
+  WHATSAPP_URL,
+} from "@/data/contact";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -112,37 +118,63 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Contact & Locations */}
+          {/* Col 4: Contact */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs font-mono font-bold tracking-widest text-[#A71728] uppercase">
-              {t.footer.contactCampus}
+              {t.footer.contactHeading}
             </h4>
             <div className="space-y-3 text-xs sm:text-sm text-neutral-600">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#A71728] shrink-0 mt-0.5" />
-                <span>
-                  {t.footer.campusAddress}
-                </span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#A71728] shrink-0" />
-                <a href="tel:+8801700000000" className="hover:text-[#A71728] transition-colors">
-                  +880 1700 000000 {t.footer.hotlineSuffix}
-                </a>
+                <Phone className="w-4 h-4 text-[#A71728] shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  {CONTACT_PHONES.map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${phone}`}
+                      className="hover:text-[#A71728] transition-colors"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#A71728] shrink-0" />
-                <a href="mailto:info@kawaiitredmig.com" className="hover:text-[#A71728] transition-colors">
-                  admissions@kawaiitredmig.com
+                <a href={MAILTO_URL} className="hover:text-[#A71728] transition-colors">
+                  {CONTACT_EMAIL}
                 </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Globe className="w-4 h-4 text-[#A71728] shrink-0" />
-                <span>{t.footer.tokyoLiaison}</span>
-              </div>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex text-[#A71728] font-semibold hover:underline"
+              >
+                WhatsApp
+              </a>
             </div>
           </div>
 
+        </div>
+
+        {/* LOCATIONS */}
+        <div className="py-12 border-b border-neutral-200">
+          <h4 className="text-xs font-mono font-bold tracking-widest text-[#A71728] uppercase mb-6">
+            {t.footer.locationsHeading}
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {t.footer.locations.map((location) => (
+              <div key={location.name} className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-[#A71728] shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-bold text-neutral-900">{location.name}</p>
+                  <p className="text-xs sm:text-sm text-neutral-600 mt-1 leading-relaxed">
+                    {location.address}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* BOTTOM ROW: COPYRIGHT & SCROLL TO TOP */}
