@@ -534,12 +534,9 @@ export const translations = {
       contactHeading: "CONTACT",
       locations: [
         {
-          name: "Training Center (Uttara)",
-          address: "House-59-61, Road 13 (Ranavola Avenue), Sector 10, Uttara, Dhaka-1230",
-        },
-        {
-          name: "Training Center (Birulia)",
-          address: "House-26/2, Block-C, Kaliakoir, Akrain, Birulia, Savar",
+          name: "Training Center (Aftabnagar)",
+          address:
+            "House 26/10, Level 8 & 9, Plot 13 & 15, Block-B, Zahurul Islam City Gate, Main Road, Aftabnagar, Dhaka-1212",
         },
         {
           name: "Head Office",
@@ -1145,12 +1142,9 @@ export const translations = {
       contactHeading: "お問い合わせ",
       locations: [
         {
-          name: "トレーニングセンター（ウッタラ）",
-          address: "House-59-61, Road 13 (Ranavola Avenue), Sector 10, Uttara, Dhaka-1230",
-        },
-        {
-          name: "トレーニングセンター（ビルリア）",
-          address: "House-26/2, Block-C, Kaliakoir, Akrain, Birulia, Savar",
+          name: "トレーニングセンター（アフタブナガル）",
+          address:
+            "House 26/10, Level 8 & 9, Plot 13 & 15, Block-B, Zahurul Islam City Gate, Main Road, Aftabnagar, Dhaka-1212",
         },
         {
           name: "本社",

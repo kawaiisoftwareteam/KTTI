@@ -162,7 +162,7 @@ export default function Footer() {
           <h4 className="text-xs font-mono font-bold tracking-widest text-[#A71728] uppercase mb-6">
             {t.footer.locationsHeading}
           </h4>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {t.footer.locations.map((location) => (
               <div key={location.name} className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-[#A71728] shrink-0 mt-0.5" />
