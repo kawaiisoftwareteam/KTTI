@@ -29,6 +29,10 @@ export const metadata: Metadata = {
     "Kawaii Tredmig Training Institute",
   ],
   authors: [{ name: "Kawaii Tredmig Training Institute" }],
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     title: "Kawaii Tredmig Training Institute | Gateway to Japan Careers",
     description:
