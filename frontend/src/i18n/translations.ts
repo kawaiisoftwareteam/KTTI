@@ -1,3 +1,6 @@
+import { aboutPageEn, aboutPageJp } from "./aboutPage";
+import { cvPageEn, cvPageJp } from "./cvPage";
+
 export type Lang = "en" | "jp";
 
 export const translations = {
@@ -5,15 +8,22 @@ export const translations = {
     nav: {
       home: "Home",
       about: "About",
+      aboutStory: "Our Story",
+      aboutLeadership: "Leadership & Management",
+      aboutAccreditation: "Accreditation & Compliance",
+      aboutCareers: "Careers at KTTI",
       courses: "Courses",
       sswPrograms: "SSW Programs",
       japaneseHub: "Japanese Hub",
       whyUs: "Why Us",
+      cv: "Generate CV",
       contact: "Contact",
       hotline: "Hotline",
       applyNow: "Apply Now",
       apply: "Apply",
     },
+    aboutPage: aboutPageEn,
+    cvPage: cvPageEn,
     hero: {
       eyebrow: "Dhaka · Tokyo · 未来へ",
       titleLine1: "Your Path to",
@@ -34,6 +44,28 @@ export const translations = {
       examCenterDesc:
         "All enrolled students undergo 10+ mock audio-visual tests mirroring exact Japanese embassy test conditions.",
       freeLevelTest: "Take Free Level Test",
+      step2: {
+        badge: "STEP 02",
+        title: "Learn Japanese Language Before Going to Japan",
+        body: "To study and live in Japan, one of the most important steps for students is learning Japanese language.",
+        offerLabel: "At Kawaii Tredmig Training Institute, we offer:",
+        offerings: [
+          "JLPT N5 Course",
+          "JFT A2 Course",
+          "Reading, Writing, Listening & Speaking Practice",
+          "Daily Conversation Training",
+          "Experienced Japanese Language Instructors",
+        ],
+        whyTitle: "Why Learning Japanese Matters",
+        whyIntro: "Strong Japanese language skills help you:",
+        whyItems: [
+          "Communicate confidently in Japan",
+          "Adapt quickly to Japanese society",
+          "Perform better in your studies",
+          "Increase opportunities for part-time jobs",
+        ],
+        note: "Students entering Japan on a Student Visa can apply for permission to work part-time while studying. If you have Japanese language skills, it significantly improves your chances of finding suitable part-time employment.",
+      },
       levels: [
         {
           level: "Beginner & N5",
@@ -125,6 +157,7 @@ export const translations = {
       ],
       admissionsTitle: "Official Admissions Office",
       admissionsSubtitle: "Dhaka Campus & Tokyo Liaison Network",
+      learnMore: "Meet Our Leadership",
       heroCard: {
         badge: "ACCREDITED ACADEMY",
         campusLabel: "DHAKA TRAINING CAMPUS",
@@ -511,12 +544,13 @@ export const translations = {
       authorized: "Authorized SSW Preparation & JLPT Training Center",
       copyright: "© 2026 Kawaii Tredmig Training Institute. All Rights Reserved.",
       navLinks: [
-        { label: "Home Overview", href: "#home" },
-        { label: "About Institute", href: "#about" },
-        { label: "Academic Courses", href: "#programs" },
-        { label: "SSW Roadmap", href: "#ssw" },
-        { label: "Japanese Academy", href: "#japanese" },
-        { label: "Why Choose Us", href: "#why-us" },
+        { label: "Home Overview", href: "/" },
+        { label: "About Institute", href: "/about/" },
+        { label: "Leadership", href: "/about/#leadership" },
+        { label: "Academic Courses", href: "/#programs" },
+        { label: "SSW Roadmap", href: "/#ssw" },
+        { label: "Japanese Academy", href: "/#japanese" },
+        { label: "Why Choose Us", href: "/#why-us" },
       ],
       disciplines: [
         "Caregiver (Nursing Care)",
@@ -540,7 +574,7 @@ export const translations = {
         },
         {
           name: "Head Office",
-          address: "Taj Casilina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
+          address: "Taj Caslina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
         },
       ],
     },
@@ -612,15 +646,22 @@ export const translations = {
     nav: {
       home: "ホーム",
       about: "当校について",
+      aboutStory: "私たちのストーリー",
+      aboutLeadership: "リーダーシップ・経営陣",
+      aboutAccreditation: "認定・コンプライアンス",
+      aboutCareers: "KTTIでのキャリア",
       courses: "コース",
       sswPrograms: "特定技能",
       japaneseHub: "日本語教育",
       whyUs: "選ばれる理由",
+      cv: "履歴書作成",
       contact: "お問い合わせ",
       hotline: "ホットライン",
       applyNow: "今すぐ申し込む",
       apply: "申し込む",
     },
+    aboutPage: aboutPageJp,
+    cvPage: cvPageJp,
     hero: {
       eyebrow: "ダッカ · 東京 · 未来へ",
       titleLine1: "日本への道は、",
@@ -642,6 +683,28 @@ export const translations = {
       examCenterDesc:
         "在籍生は、大使館試験に準じた視聴覚模擬試験を10回以上受験します。",
       freeLevelTest: "無料レベル診断を受ける",
+      step2: {
+        badge: "ステップ 02",
+        title: "渡日前に日本語を学ぶ",
+        body: "日本で学び、生活するために、学生にとって最も重要なステップのひとつが日本語の習得です。",
+        offerLabel: "Kawaii Tredmig Training Instituteでは、次の講座・指導を提供しています：",
+        offerings: [
+          "JLPT N5コース",
+          "JFT A2コース",
+          "読解・作文・聴解・会話の総合練習",
+          "日常会話トレーニング",
+          "経験豊富な日本語講師による指導",
+        ],
+        whyTitle: "日本語学習が大切な理由",
+        whyIntro: "確かな日本語力は、次のような力になります：",
+        whyItems: [
+          "日本で自信を持ってコミュニケーションできる",
+          "日本社会へ早く馴染める",
+          "学業でより良い成果を出せる",
+          "アルバイトの機会が広がる",
+        ],
+        note: "留学ビザで入国した学生は、在学中にアルバイト許可を申請できます。日本語力があれば、自分に合ったアルバイトを見つけられる可能性が大きく高まります。",
+      },
       levels: [
         {
           level: "初級・N5",
@@ -733,6 +796,7 @@ export const translations = {
       ],
       admissionsTitle: "公式入学相談窓口",
       admissionsSubtitle: "ダッカ校舎・東京連携ネットワーク",
+      learnMore: "リーダーシップを見る",
       heroCard: {
         badge: "認定アカデミー",
         campusLabel: "ダッカ訓練キャンパス",
@@ -1119,12 +1183,13 @@ export const translations = {
       authorized: "特定技能準備・JLPT対策 認定トレーニングセンター",
       copyright: "© 2026 Kawaii Tredmig Training Institute. All Rights Reserved.",
       navLinks: [
-        { label: "ホーム概要", href: "#home" },
-        { label: "当校について", href: "#about" },
-        { label: "開講コース", href: "#programs" },
-        { label: "特定技能ロードマップ", href: "#ssw" },
-        { label: "日本語アカデミー", href: "#japanese" },
-        { label: "選ばれる理由", href: "#why-us" },
+        { label: "ホーム概要", href: "/" },
+        { label: "当校について", href: "/about/" },
+        { label: "リーダーシップ", href: "/about/#leadership" },
+        { label: "開講コース", href: "/#programs" },
+        { label: "特定技能ロードマップ", href: "/#ssw" },
+        { label: "日本語アカデミー", href: "/#japanese" },
+        { label: "選ばれる理由", href: "/#why-us" },
       ],
       disciplines: [
         "介護",
@@ -1148,7 +1213,7 @@ export const translations = {
         },
         {
           name: "本社",
-          address: "Taj Casilina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
+          address: "Taj Caslina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
         },
       ],
     },

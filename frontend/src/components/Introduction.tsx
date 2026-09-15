@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Check, ShieldCheck, Trophy, Sparkles, Building, Globe } from "lucide-react";
+import { Check, Trophy, Building } from "lucide-react";
 import DoorButton from "@/components/DoorButton";
+import DoorLink from "@/components/DoorLink";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 interface IntroductionProps {
@@ -70,6 +71,13 @@ export default function Introduction({ onOpenApply }: IntroductionProps) {
               >
                 {t.about.cta}
               </DoorButton>
+              <DoorLink
+                href="/about/"
+                variant="outline"
+                className="px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider"
+              >
+                {t.about.learnMore}
+              </DoorLink>
               <div className="text-xs text-neutral-500 font-medium">
                 <span className="block font-bold text-neutral-900">{t.about.admissionsTitle}</span>
                 <span>{t.about.admissionsSubtitle}</span>

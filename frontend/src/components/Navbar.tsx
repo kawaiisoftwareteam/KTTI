@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight, Phone } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, ArrowUpRight, Phone, ChevronDown } from "lucide-react";
 import DoorButton from "@/components/DoorButton";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { Lang } from "@/i18n/translations";
@@ -12,13 +13,34 @@ interface NavbarProps {
   onOpenApply: () => void;
 }
 
+type NavLink = {
+  label: string;
+  href: string;
+  id: string;
+  children?: { label: string; href: string }[];
+};
+
 export default function Navbar({ onOpenApply }: NavbarProps) {
   const { lang, setLang, t } = useLanguage();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/" || pathname === "";
+  const isAbout = pathname?.startsWith("/about") ?? false;
+  const isCv = pathname?.startsWith("/cv") ?? false;
+
+  const [isScrolled, setIsScrolled] = useState(!isHome);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(
+    isAbout ? "about" : isCv ? "cv" : "home"
+  );
 
   useEffect(() => {
+    if (!isHome) {
+      setIsScrolled(true);
+      setActiveSection(isAbout ? "about" : isCv ? "cv" : "");
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
@@ -47,18 +69,30 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       }
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHome, isAbout, isCv]);
 
-  const navLinks = [
-    { label: t.nav.home, href: "#home", id: "home" },
-    { label: t.nav.about, href: "#about", id: "about" },
-    { label: t.nav.courses, href: "#programs", id: "programs" },
-    { label: t.nav.sswPrograms, href: "#ssw", id: "ssw" },
-    { label: t.nav.japaneseHub, href: "#japanese", id: "japanese" },
-    { label: t.nav.whyUs, href: "#why-us", id: "why-us" },
-    { label: t.nav.contact, href: "#contact", id: "contact" },
+  const navLinks: NavLink[] = [
+    { label: t.nav.home, href: "/", id: "home" },
+    {
+      label: t.nav.about,
+      href: "/about/",
+      id: "about",
+      children: [
+        { label: t.nav.aboutStory, href: "/about/#our-story" },
+        { label: t.nav.aboutLeadership, href: "/about/#leadership" },
+        { label: t.nav.aboutAccreditation, href: "/about/#accreditation" },
+        { label: t.nav.aboutCareers, href: "/about/#careers" },
+      ],
+    },
+    { label: t.nav.courses, href: "/#programs", id: "programs" },
+    { label: t.nav.sswPrograms, href: "/#ssw", id: "ssw" },
+    { label: t.nav.japaneseHub, href: "/#japanese", id: "japanese" },
+    { label: t.nav.whyUs, href: "/#why-us", id: "why-us" },
+    { label: t.nav.cv, href: "/cv/", id: "cv" },
+    { label: t.nav.contact, href: "/#contact", id: "contact" },
   ];
 
   const LangToggle = ({ compact = false }: { compact?: boolean }) => (
@@ -98,11 +132,20 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
     </div>
   );
 
+  const linkClass = (isActive: boolean) =>
+    `px-3 xl:px-4 py-2.5 text-sm xl:text-base font-semibold tracking-wide rounded-none transition-all duration-200 whitespace-nowrap ${
+      isActive
+        ? "bg-white text-[#A71728] shadow-sm font-bold"
+        : isScrolled
+          ? "text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100"
+          : "text-white/90 hover:text-white hover:bg-white/10"
+    }`;
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full py-4 transition-all duration-300">
       <div className="relative w-full flex items-center justify-between px-4 sm:px-5 lg:px-6">
         <Link
-          href="#home"
+          href="/"
           className="flex items-center select-none shrink-0 z-10"
           aria-label="KTTI — Kawaii Tredmig Training Institute"
         >
@@ -125,19 +168,43 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           }`}
         >
           {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
+            const isActive =
+              activeSection === link.id ||
+              (link.id === "about" && isAbout) ||
+              (link.id === "cv" && isCv);
+            if (link.children) {
+              return (
+                <div
+                  key={link.id}
+                  className="relative"
+                  onMouseEnter={() => setAboutOpen(true)}
+                  onMouseLeave={() => setAboutOpen(false)}
+                >
+                  <Link href={link.href} className={`${linkClass(isActive)} inline-flex items-center gap-1`}>
+                    {link.label}
+                    <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                  </Link>
+                  {aboutOpen && (
+                    <div className="absolute top-full left-0 pt-2 min-w-[240px]">
+                      <div className="bg-white border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] py-2">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block px-4 py-2.5 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-[#A71728]"
+                            onClick={() => setAboutOpen(false)}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            }
             return (
-              <Link
-                key={link.id}
-                href={link.href}
-                className={`px-3 xl:px-4 py-2.5 text-sm xl:text-base font-semibold tracking-wide rounded-none transition-all duration-200 whitespace-nowrap ${
-                  isActive
-                    ? "bg-white text-[#A71728] shadow-sm font-bold"
-                    : isScrolled
-                      ? "text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100"
-                      : "text-white/90 hover:text-white hover:bg-white/10"
-                }`}
-              >
+              <Link key={link.id} href={link.href} className={linkClass(isActive)}>
                 {link.label}
               </Link>
             );
@@ -200,21 +267,35 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
         <div className="lg:hidden mx-4 mt-3 rounded-xl bg-white/95 backdrop-blur-3xl border border-white/80 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-3 px-4 text-lg font-semibold rounded-lg transition-all flex items-center justify-between ${
-                  activeSection === link.id
-                    ? "bg-[#A71728]/10 text-[#A71728] font-bold"
-                    : "text-neutral-800 hover:bg-neutral-100"
-                }`}
-              >
-                <span>{link.label}</span>
-                {activeSection === link.id && (
-                  <span className="w-2 h-2 rounded-full bg-[#A71728]" />
+              <div key={link.id}>
+                <Link
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-3 px-4 text-lg font-semibold rounded-lg transition-all flex items-center justify-between ${
+                    activeSection === link.id ||
+                    (link.id === "about" && isAbout) ||
+                    (link.id === "cv" && isCv)
+                      ? "bg-[#A71728]/10 text-[#A71728] font-bold"
+                      : "text-neutral-800 hover:bg-neutral-100"
+                  }`}
+                >
+                  <span>{link.label}</span>
+                </Link>
+                {link.children && (
+                  <div className="ml-3 mb-2 border-l border-neutral-200 pl-3 space-y-1">
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 px-3 text-sm font-medium text-neutral-600 hover:text-[#A71728]"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-              </Link>
+              </div>
             ))}
 
             <div className="pt-4 mt-2 border-t border-neutral-100 flex flex-col gap-2">

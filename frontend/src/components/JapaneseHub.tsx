@@ -13,6 +13,7 @@ export default function JapaneseHub({ onOpenApply }: JapaneseHubProps) {
   const { t } = useLanguage();
   const [cardsVisible, setCardsVisible] = useState(false);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const step2 = t.japaneseHub.step2;
 
   useEffect(() => {
     const el = cardsRef.current;
@@ -59,6 +60,72 @@ export default function JapaneseHub({ onOpenApply }: JapaneseHubProps) {
           <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal max-w-2xl">
             {t.japaneseHub.intro}
           </p>
+        </div>
+
+        {/* Step 2: Learn Japanese before going to Japan */}
+        <div className="mb-14 sm:mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="px-3.5 py-1 bg-[#A71728] text-white text-xs font-mono font-black tracking-wider">
+                {step2.badge}
+              </span>
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-neutral-950 tracking-tight leading-tight">
+              {step2.title}
+            </h3>
+
+            <p className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl">
+              {step2.body}
+            </p>
+
+            <div className="space-y-3 pt-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#A71728] font-mono block">
+                {step2.offerLabel}
+              </span>
+              <ul className="space-y-2.5">
+                {step2.offerings.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-start gap-3 bg-white p-3.5 border border-neutral-200/90 shadow-sm"
+                  >
+                    <Check className="w-5 h-5 text-[#A71728] shrink-0 mt-0.5 stroke-[2.5]" />
+                    <span className="text-sm font-medium text-neutral-800">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 flex flex-col justify-between gap-6 bg-neutral-950 text-white p-7 sm:p-9 border border-neutral-900">
+            <div className="space-y-5">
+              <div>
+                <h4 className="text-xl sm:text-2xl font-black tracking-tight">
+                  {step2.whyTitle}
+                </h4>
+                <p className="text-sm text-white/60 mt-2 leading-relaxed">
+                  {step2.whyIntro}
+                </p>
+              </div>
+
+              <ul className="space-y-3">
+                {step2.whyItems.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="mt-1.5 w-1.5 h-1.5 shrink-0 bg-[#A71728]" />
+                    <span className="text-sm text-white/90 leading-snug">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="text-sm text-white/55 leading-relaxed border-t border-white/10 pt-5">
+              {step2.note}
+            </p>
+          </div>
         </div>
 
         <div

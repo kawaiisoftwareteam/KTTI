@@ -27,7 +27,7 @@ export default function Footer() {
           
           {/* Col 1: Brand & Bio */}
           <div className="lg:col-span-4 space-y-5">
-            <Link href="#home" className="inline-block" aria-label="KTTI home">
+            <Link href="/" className="inline-block" aria-label="KTTI home">
               <Image
                 src="/ktti-logo.png"
                 alt="KTTI — Kawaii Tredmig Training Institute"

@@ -59,7 +59,7 @@ export default function Hero({ onOpenApply }: HeroProps) {
               {t.hero.ctaPrimary}
             </DoorButton>
             <DoorLink
-              href="#about"
+              href="/about/"
               variant="outline"
               className="px-8 py-3.5 sm:px-10 sm:py-4 text-sm sm:text-base font-semibold tracking-wider uppercase"
             >

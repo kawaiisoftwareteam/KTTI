@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import { Outfit, Noto_Sans_JP } from "next/font/google";
+import SiteShell from "@/components/SiteShell";
 import "./globals.css";
 
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "900"],
 });
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-jp",
-  subsets: ["latin"],
+  subsets: ["latin", "japanese"],
   display: "swap",
   weight: ["400", "500", "700"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sswv.org"),
   title: "Kawaii Tredmig Training Institute | SSW & Japanese Language Academy",
   description:
     "Premier SSW preparation and Japanese language training institute. Empowering students and professionals from Bangladesh to build successful, high-earning careers in Japan.",
@@ -39,6 +42,8 @@ export const metadata: Metadata = {
       "Specialized SSW training, JLPT preparation, and career placement pathway to Japan.",
     type: "website",
     locale: "en_US",
+    url: "https://sswv.org",
+    siteName: "Kawaii Tredmig Training Institute",
   },
 };
 
@@ -50,10 +55,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${notoSansJP.variable} scroll-smooth antialiased`}
+      className={`${outfit.className} ${notoSansJP.variable} scroll-smooth antialiased`}
     >
-      <body className="min-h-screen bg-[#FFFFFF] text-[#111111] font-sans selection:bg-[#A71728] selection:text-white">
-        {children}
+      <body
+        className="min-h-screen bg-[#FFFFFF] text-[#111111] font-sans selection:bg-[#A71728] selection:text-white"
+        suppressHydrationWarning
+      >
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );
