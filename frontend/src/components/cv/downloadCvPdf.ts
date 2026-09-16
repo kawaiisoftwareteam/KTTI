@@ -1,50 +1,64 @@
 /**
  * Capture CV preview pages and download a multi-page A4 PDF.
  * Uses modern-screenshot (oklch-safe with Tailwind v4) + jsPDF.
+ *
+ * Watermark is baked into each page's raster image (not a separate PDF
+ * layer), so it can't be stripped by deleting PDF objects / layer removers.
  */
 
 const WATERMARK_SRC = "/ktti-logo.png";
 const WATERMARK_OPACITY = 0.1;
-const WATERMARK_ANGLE = -32;
-const WATERMARK_WIDTH_MM = 118;
+const WATERMARK_ANGLE_DEG = -32;
+/** Watermark width as a fraction of the page image width. */
+const WATERMARK_WIDTH_RATIO = 0.72;
 
-async function loadImageDataUrl(src: string): Promise<string> {
-  const res = await fetch(src);
-  if (!res.ok) throw new Error(`Failed to load watermark (${res.status}).`);
-  const blob = await res.blob();
-  return await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result));
-    reader.onerror = () => reject(new Error("Failed to read watermark image."));
-    reader.readAsDataURL(blob);
+function loadHtmlImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    img.src = src;
   });
 }
 
-function drawDiagonalWatermark(
-  pdf: InstanceType<typeof import("jspdf").jsPDF>,
-  logoDataUrl: string,
-  pageW: number,
-  pageH: number
-) {
-  const logoW = WATERMARK_WIDTH_MM;
-  const logoH = logoW * (413 / 1246);
-  const x = (pageW - logoW) / 2;
-  const y = (pageH - logoH) / 2;
+/**
+ * Flatten page JPEG + diagonal logo into one image so the watermark
+ * is part of the pixels, not a removable PDF overlay.
+ */
+async function bakeWatermarkIntoPage(
+  pageDataUrl: string,
+  logo: HTMLImageElement
+): Promise<{ dataUrl: string; w: number; h: number }> {
+  const page = await loadHtmlImage(pageDataUrl);
+  const w = page.naturalWidth;
+  const h = page.naturalHeight;
+  if (!w || !h) throw new Error("Failed to render CV page.");
 
-  pdf.saveGraphicsState();
-  pdf.setGState(pdf.GState({ opacity: WATERMARK_OPACITY }));
-  pdf.addImage(
-    logoDataUrl,
-    "PNG",
-    x,
-    y,
-    logoW,
-    logoH,
-    "ktti-wm",
-    "FAST",
-    WATERMARK_ANGLE
-  );
-  pdf.restoreGraphicsState();
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas unavailable for watermark.");
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(page, 0, 0);
+
+  const logoW = w * WATERMARK_WIDTH_RATIO;
+  const logoH = logoW * (logo.naturalHeight / logo.naturalWidth);
+
+  ctx.save();
+  ctx.translate(w / 2, h / 2);
+  ctx.rotate((WATERMARK_ANGLE_DEG * Math.PI) / 180);
+  ctx.globalAlpha = WATERMARK_OPACITY;
+  ctx.drawImage(logo, -logoW / 2, -logoH / 2, logoW, logoH);
+  ctx.restore();
+
+  return {
+    dataUrl: canvas.toDataURL("image/jpeg", 0.95),
+    w,
+    h,
+  };
 }
 
 export async function downloadCvPdf(options: {
@@ -71,7 +85,7 @@ export async function downloadCvPdf(options: {
     throw new Error("jsPDF failed to load.");
   }
 
-  const logoDataUrl = await loadImageDataUrl(WATERMARK_SRC);
+  const logo = await loadHtmlImage(WATERMARK_SRC);
 
   const pdf = new JsPDF({
     orientation: "portrait",
@@ -119,7 +133,7 @@ export async function downloadCvPdf(options: {
 
     for (let i = 0; i < pages.length; i++) {
       const el = pages[i];
-      const dataUrl = await domToJpeg(el, {
+      const rawPage = await domToJpeg(el, {
         quality: 0.95,
         scale: 2,
         backgroundColor: "#ffffff",
@@ -129,27 +143,17 @@ export async function downloadCvPdf(options: {
         },
       });
 
-      // Probe image size
-      const dims = await new Promise<{ w: number; h: number }>((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
-        img.onerror = () => reject(new Error("Failed to encode CV page image."));
-        img.src = dataUrl;
-      });
+      const baked = await bakeWatermarkIntoPage(rawPage, logo);
 
-      if (!dims.w || !dims.h) {
-        throw new Error("Failed to render CV page.");
-      }
-
-      const ratio = Math.min(maxW / dims.w, maxH / dims.h);
-      const w = dims.w * ratio;
-      const h = dims.h * ratio;
+      const ratio = Math.min(maxW / baked.w, maxH / baked.h);
+      const w = baked.w * ratio;
+      const h = baked.h * ratio;
       const x = (pageW - w) / 2;
       const y = margin;
 
       if (i > 0) pdf.addPage();
-      pdf.addImage(dataUrl, "JPEG", x, y, w, h, undefined, "FAST");
-      drawDiagonalWatermark(pdf, logoDataUrl, pageW, pageH);
+      // One flattened image per page — no separate watermark PDF object.
+      pdf.addImage(baked.dataUrl, "JPEG", x, y, w, h, undefined, "FAST");
     }
 
     const finalName = fileName.endsWith(".pdf") ? fileName : `${fileName}.pdf`;
