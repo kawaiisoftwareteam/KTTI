@@ -4,11 +4,14 @@ import React from "react";
 import type { CvData } from "./cvTypes";
 import { formatBirthdayDisplay } from "./cvTypes";
 import { previewLabels as L } from "@/i18n/cvPage";
+import ScaleToWidth from "./ScaleToWidth";
 
 const PEACH = "#F6C8A8";
 const GREY = "#D9D9D9";
 const LABEL_BG = "#EEEEEE";
 const BORDER = "1px solid #111";
+/** A4 width at 96dpi — keep layout fixed; ScaleToWidth handles mobile. */
+const A4_WIDTH_PX = 794;
 
 type Props = {
   data: CvData;
@@ -32,7 +35,7 @@ function LabelCell({
 }) {
   return (
     <td
-      className={`align-middle p-1 text-[10px] leading-tight text-black ${className}`}
+      className={`align-middle p-1 text-[10px] leading-tight text-black break-words [overflow-wrap:anywhere] ${className}`}
       style={{ border: BORDER, background: LABEL_BG, ...style }}
     >
       {children}
@@ -57,7 +60,7 @@ function DataCell({
     <td
       colSpan={colSpan}
       rowSpan={rowSpan}
-      className={`align-middle p-1.5 ${className}`}
+      className={`align-middle p-1.5 break-words [overflow-wrap:anywhere] ${className}`}
       style={{ border: BORDER, ...style }}
     >
       {children}
@@ -136,16 +139,17 @@ export default function CvPreview({ data }: Props) {
   };
 
   return (
-    <div id="cv-preview-sheet" className="space-y-4">
+    <ScaleToWidth width={A4_WIDTH_PX}>
+    <div id="cv-preview-sheet" className="space-y-4" style={{ width: A4_WIDTH_PX }}>
       {/* ========== PAGE 1 ========== */}
       <div
         id="cv-page-1"
-        className="bg-white text-black w-full max-w-[794px] mx-auto p-4 sm:p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-neutral-200"
-        style={sheetStyle}
+        className="bg-white text-black p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-neutral-200 box-border"
+        style={{ ...sheetStyle, width: A4_WIDTH_PX }}
       >
         <h1
-          className="font-black mb-2 tracking-[0.5em]"
-          style={{ fontSize: "30px", letterSpacing: "0.5em" }}
+          className="font-black mb-2 tracking-[0.35em] sm:tracking-[0.5em]"
+          style={{ fontSize: "30px", letterSpacing: "0.35em" }}
         >
           {L.title}
         </h1>
@@ -397,8 +401,8 @@ export default function CvPreview({ data }: Props) {
       {/* ========== PAGE 2 ========== */}
       <div
         id="cv-page-2"
-        className="bg-white text-black w-full max-w-[794px] mx-auto p-4 sm:p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-neutral-200"
-        style={sheetStyle}
+        className="bg-white text-black p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-neutral-200 box-border"
+        style={{ ...sheetStyle, width: A4_WIDTH_PX }}
       >
         {/* Language Ability */}
         <table className="w-full border-collapse mb-3" style={{ tableLayout: "fixed" }}>
@@ -618,5 +622,6 @@ export default function CvPreview({ data }: Props) {
         </table>
       </div>
     </div>
+    </ScaleToWidth>
   );
 }

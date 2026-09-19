@@ -100,6 +100,9 @@ export async function downloadCvPdf(options: {
   const maxW = pageW - margin * 2;
   const maxH = pageH - margin * 2;
 
+  // Force scale wrappers to 1× so capture is full A4 resolution
+  document.documentElement.classList.add("cv-pdf-capturing");
+
   // Temporarily reveal hidden ancestors so layout is measurable
   const unlocks: Array<() => void> = [];
   for (const page of pages) {
@@ -175,6 +178,7 @@ export async function downloadCvPdf(options: {
     setTimeout(() => URL.revokeObjectURL(url), 4000);
   } finally {
     unlocks.forEach((fn) => fn());
+    document.documentElement.classList.remove("cv-pdf-capturing");
   }
 }
 

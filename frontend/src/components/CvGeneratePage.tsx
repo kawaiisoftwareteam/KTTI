@@ -59,15 +59,17 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <label className="block space-y-1.5">
-      <span className="text-xs font-semibold text-neutral-600">{label}</span>
+    <label className="block space-y-1.5 min-w-0">
+      <span className="text-xs font-semibold text-neutral-600 break-words leading-snug">
+        {label}
+      </span>
       {children}
     </label>
   );
 }
 
 const inputClass =
-  "w-full rounded-none border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 outline-none transition focus:border-[#A71728] focus:ring-2 focus:ring-[#A71728]/15";
+  "w-full min-w-0 rounded-none border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 outline-none transition focus:border-[#A71728] focus:ring-2 focus:ring-[#A71728]/15";
 
 const JLPT = ["", "N1", "N2", "N3", "N4", "N5", "他"];
 
@@ -222,13 +224,13 @@ export default function CvGeneratePage() {
 
       {/* Sticky bar */}
       <div className="sticky top-[88px] z-30 border-b border-neutral-200 bg-white/95 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center gap-2 justify-between">
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-600 shrink-0">
               <Languages className="w-3.5 h-3.5" />
-              {c.langPrefLabel}
+              <span className="whitespace-nowrap">{c.langPrefLabel}</span>
             </div>
-            <div className="flex rounded-none border border-neutral-200 overflow-hidden">
+            <div className="flex rounded-none border border-neutral-200 overflow-hidden shrink-0">
               {(["en", "jp"] as CvLangPref[]).map((code) => (
                 <button
                   key={code}
@@ -245,7 +247,7 @@ export default function CvGeneratePage() {
               ))}
             </div>
 
-            <div className="flex lg:hidden rounded-none border border-neutral-200 overflow-hidden ml-1">
+            <div className="flex lg:hidden rounded-none border border-neutral-200 overflow-hidden">
               <button
                 type="button"
                 onClick={() => setMobileTab("edit")}
@@ -255,8 +257,8 @@ export default function CvGeneratePage() {
                     : "bg-white text-neutral-700"
                 }`}
               >
-                <Pencil className="w-3.5 h-3.5" />
-                {c.actions.edit}
+                <Pencil className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate max-w-[7rem]">{c.actions.edit}</span>
               </button>
               <button
                 type="button"
@@ -267,28 +269,34 @@ export default function CvGeneratePage() {
                     : "bg-white text-neutral-700"
                 }`}
               >
-                <Eye className="w-3.5 h-3.5" />
-                {c.actions.preview}
+                <Eye className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate max-w-[7rem]">{c.actions.preview}</span>
               </button>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
             <button
               type="button"
               onClick={handleClear}
               className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold border border-neutral-200 text-neutral-700 hover:bg-neutral-50"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              {c.actions.clear}
+              <Trash2 className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-nowrap">{c.actions.clear}</span>
             </button>
             <button
               type="button"
               onClick={handleSave}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold border border-[#A71728]/30 text-[#A71728] bg-[#A71728]/5 hover:bg-[#A71728]/10"
             >
-              {saving ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
-              {saving ? c.actions.saved : c.actions.save}
+              {saving ? (
+                <Check className="w-3.5 h-3.5 shrink-0" />
+              ) : (
+                <Save className="w-3.5 h-3.5 shrink-0" />
+              )}
+              <span className="whitespace-nowrap">
+                {saving ? c.actions.saved : c.actions.save}
+              </span>
             </button>
             <button
               type="button"
@@ -296,17 +304,19 @@ export default function CvGeneratePage() {
               disabled={downloading}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#A71728] hover:bg-[#86101E] disabled:opacity-60 shadow-md shadow-[#A71728]/25"
             >
-              <Download className="w-3.5 h-3.5" />
-              {downloading ? c.actions.downloading : c.actions.downloadPdf}
+              <Download className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-nowrap">
+                {downloading ? c.actions.downloading : c.actions.downloadPdf}
+              </span>
             </button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start min-w-0">
         {/* FORM */}
         <div
-          className={`space-y-5 ${mobileTab === "preview" ? "hidden lg:block" : "block"}`}
+          className={`space-y-5 min-w-0 ${mobileTab === "preview" ? "hidden lg:block" : "block"}`}
         >
           <SectionCard title={c.photo.title}>
             <div className="flex flex-col sm:flex-row gap-4 items-start">
@@ -741,7 +751,7 @@ export default function CvGeneratePage() {
 
         {/* PREVIEW */}
         <div
-          className={`lg:sticky lg:top-[150px] ${
+          className={`lg:sticky lg:top-[150px] min-w-0 ${
             mobileTab === "edit" ? "hidden lg:block" : "block"
           }`}
         >
@@ -751,7 +761,7 @@ export default function CvGeneratePage() {
             </h2>
             <span className="text-[11px] text-neutral-400">履歴書 · A4 PDF</span>
           </div>
-          <div className="overflow-auto max-h-[calc(100vh-180px)] rounded-xl border border-neutral-300 bg-neutral-200/60 p-2 sm:p-4 shadow-inner">
+          <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-180px)] rounded-xl border border-neutral-300 bg-neutral-200/60 p-2 sm:p-4 shadow-inner min-w-0">
             <CvPreview data={data} />
           </div>
         </div>

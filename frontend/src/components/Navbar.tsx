@@ -97,7 +97,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
 
   const LangToggle = ({ compact = false }: { compact?: boolean }) => (
     <div
-      className={`flex items-center rounded-none border overflow-hidden ${
+      className={`flex items-center rounded-none border overflow-hidden shrink-0 ${
         compact
           ? "border-neutral-200"
           : isScrolled
@@ -133,7 +133,9 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
   );
 
   const linkClass = (isActive: boolean) =>
-    `px-3 xl:px-4 py-2.5 text-sm xl:text-base font-semibold tracking-wide rounded-none transition-all duration-200 whitespace-nowrap ${
+    `px-2 xl:px-3 2xl:px-4 py-2.5 font-semibold tracking-wide rounded-none transition-all duration-200 whitespace-nowrap ${
+      lang === "jp" ? "text-[13px] xl:text-sm" : "text-sm xl:text-base"
+    } ${
       isActive
         ? "bg-white text-[#A71728] shadow-sm font-bold"
         : isScrolled
@@ -143,7 +145,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full py-4 transition-all duration-300">
-      <div className="relative w-full flex items-center justify-between px-4 sm:px-5 lg:px-6">
+      <div className="relative w-full flex items-center justify-between gap-3 px-4 sm:px-5 lg:px-6 min-w-0">
         <Link
           href="/"
           className="flex items-center select-none shrink-0 z-10"
@@ -161,7 +163,9 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
         </Link>
 
         <nav
-          className={`hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-xl border transition-all duration-300 p-2 ${
+          className={`hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center max-w-[min(100%,52rem)] xl:max-w-none ${
+            lang === "jp" ? "gap-0" : "gap-0.5"
+          } rounded-xl border transition-all duration-300 p-1.5 xl:p-2 ${
             isScrolled
               ? "bg-white/95 backdrop-blur-2xl border-neutral-200/70 shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
               : "bg-black/35 backdrop-blur-md border-white/15"
@@ -211,20 +215,22 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           })}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-2 shrink-0 z-10">
+        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0 z-10 min-w-0">
           <LangToggle />
 
           <a
             href="https://wa.me/8801817047247"
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-2 text-[15px] font-bold px-3.5 py-2.5 rounded-none transition-all group whitespace-nowrap border ${
+            className={`flex items-center gap-2 font-bold px-2.5 xl:px-3.5 py-2.5 rounded-none transition-all group whitespace-nowrap border ${
+              lang === "jp" ? "text-sm" : "text-[15px]"
+            } ${
               isScrolled
                 ? "text-neutral-800 bg-white/90 hover:bg-white border-neutral-200"
                 : "text-white bg-black/35 hover:bg-black/45 border-white/15 backdrop-blur-md"
             }`}
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#25D366]" />
             </span>
@@ -233,10 +239,12 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
 
           <DoorButton
             onClick={onOpenApply}
-            className="group px-4 py-2.5 text-[15px] font-bold tracking-wider uppercase shadow-md shadow-[#A71728]/25 whitespace-nowrap"
+            className={`group px-3 xl:px-4 py-2.5 font-bold tracking-wider uppercase shadow-md shadow-[#A71728]/25 whitespace-nowrap ${
+              lang === "jp" ? "text-sm" : "text-[15px]"
+            }`}
           >
             <span>{t.nav.applyNow}</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </DoorButton>
         </div>
 
