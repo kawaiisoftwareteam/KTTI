@@ -24,36 +24,38 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
   const { lang, setLang, t } = useLanguage();
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname === "";
-  const isAbout = pathname?.startsWith("/about") ?? false;
-  const isCv = pathname?.startsWith("/cv") ?? false;
+
+  const routeActiveId = (() => {
+    if (!pathname || isHome) return null;
+    if (pathname.startsWith("/about") || pathname.startsWith("/leadership"))
+      return "about";
+    if (pathname.startsWith("/courses")) return "programs";
+    if (pathname.startsWith("/ssw")) return "ssw";
+    if (pathname.startsWith("/japanese")) return "japanese";
+    if (pathname.startsWith("/why-us")) return "why-us";
+    if (pathname.startsWith("/cv")) return "cv";
+    if (pathname.startsWith("/contact")) return "contact";
+    return "";
+  })();
 
   const [isScrolled, setIsScrolled] = useState(!isHome);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(
-    isAbout ? "about" : isCv ? "cv" : "home"
+    routeActiveId ?? "home"
   );
 
   useEffect(() => {
     if (!isHome) {
       setIsScrolled(true);
-      setActiveSection(isAbout ? "about" : isCv ? "cv" : "");
+      setActiveSection(routeActiveId ?? "");
       return;
     }
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = [
-        "home",
-        "about",
-        "programs",
-        "ssw",
-        "japanese",
-        "why-us",
-        "testimonials",
-        "contact",
-      ];
+      const sections = ["home", "about", "testimonials", "contact"];
       const scrollPos = window.scrollY + 140;
 
       for (const section of sections) {
@@ -72,7 +74,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome, isAbout, isCv]);
+  }, [isHome, routeActiveId]);
 
   const navLinks: NavLink[] = [
     { label: t.nav.home, href: "/", id: "home" },
@@ -81,18 +83,18 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       href: "/about/",
       id: "about",
       children: [
-        { label: t.nav.aboutStory, href: "/about/#our-story" },
-        { label: t.nav.aboutLeadership, href: "/about/#leadership" },
-        { label: t.nav.aboutAccreditation, href: "/about/#accreditation" },
-        { label: t.nav.aboutCareers, href: "/about/#careers" },
+        { label: t.nav.aboutStory, href: "/about/" },
+        { label: t.nav.aboutLeadership, href: "/leadership/" },
+        { label: t.nav.aboutAccreditation, href: "/about/accreditation/" },
+        { label: t.nav.aboutCareers, href: "/about/careers/" },
       ],
     },
-    { label: t.nav.courses, href: "/#programs", id: "programs" },
-    { label: t.nav.sswPrograms, href: "/#ssw", id: "ssw" },
-    { label: t.nav.japaneseHub, href: "/#japanese", id: "japanese" },
-    { label: t.nav.whyUs, href: "/#why-us", id: "why-us" },
+    { label: t.nav.courses, href: "/courses/", id: "programs" },
+    { label: t.nav.sswPrograms, href: "/ssw/", id: "ssw" },
+    { label: t.nav.japaneseHub, href: "/japanese/", id: "japanese" },
+    { label: t.nav.whyUs, href: "/why-us/", id: "why-us" },
     { label: t.nav.cv, href: "/cv/", id: "cv" },
-    { label: t.nav.contact, href: "/#contact", id: "contact" },
+    { label: t.nav.contact, href: "/contact/", id: "contact" },
   ];
 
   const LangToggle = ({ compact = false }: { compact?: boolean }) => (
@@ -152,12 +154,12 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           aria-label="KTTI — Kawaii Tredmig Training Institute"
         >
           <Image
-            src={isScrolled ? "/ktti-logo.png" : "/ktti-logo-light.png"}
+            src={isScrolled ? "/ktti-logo.svg" : "/ktti-logo-light.svg"}
             alt="KTTI"
-            width={280}
-            height={93}
+            width={400}
+            height={132}
             priority
-            className="h-14 sm:h-16 lg:h-[4.5rem] w-auto"
+            className="h-12 sm:h-14 lg:h-16 w-auto"
             style={{ width: "auto" }}
           />
         </Link>
@@ -172,10 +174,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           }`}
         >
           {navLinks.map((link) => {
-            const isActive =
-              activeSection === link.id ||
-              (link.id === "about" && isAbout) ||
-              (link.id === "cv" && isCv);
+            const isActive = activeSection === link.id;
             if (link.children) {
               return (
                 <div
@@ -280,9 +279,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`py-3 px-4 text-lg font-semibold rounded-lg transition-all flex items-center justify-between ${
-                    activeSection === link.id ||
-                    (link.id === "about" && isAbout) ||
-                    (link.id === "cv" && isCv)
+                    activeSection === link.id
                       ? "bg-[#A71728]/10 text-[#A71728] font-bold"
                       : "text-neutral-800 hover:bg-neutral-100"
                   }`}

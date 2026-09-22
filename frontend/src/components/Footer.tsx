@@ -29,10 +29,10 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-5">
             <Link href="/" className="inline-block" aria-label="KTTI home">
               <Image
-                src="/ktti-logo.png"
+                src="/ktti-logo.svg"
                 alt="KTTI — Kawaii Tredmig Training Institute"
-                width={200}
-                height={66}
+                width={400}
+                height={132}
                 className="h-12 w-auto"
                 style={{ width: "auto" }}
               />

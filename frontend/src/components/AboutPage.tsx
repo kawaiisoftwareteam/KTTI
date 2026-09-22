@@ -1,66 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
-import { Check, MapPin, Plus, Minus, Quote } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Check, MapPin, Plus, Minus } from "lucide-react";
 import DoorButton from "@/components/DoorButton";
 import DoorLink from "@/components/DoorLink";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useApplyModal } from "@/contexts/ApplyModalContext";
-
-function initials(name: string) {
-  return name
-    .replace(/^(Md\.?|Captain)\s+/i, "")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
-function LeaderCard({
-  name,
-  title,
-  bio,
-  featured = false,
-}: {
-  name: string;
-  title: string;
-  bio: string;
-  featured?: boolean;
-}) {
-  return (
-    <article
-      className={`flex flex-col border border-neutral-200 bg-white ${
-        featured ? "lg:col-span-2 lg:flex-row lg:gap-8 p-6 sm:p-8" : "p-5 sm:p-6"
-      }`}
-    >
-      <div
-        className={`shrink-0 bg-neutral-100 border border-neutral-200 flex items-center justify-center text-[#A71728] font-black tracking-tight ${
-          featured
-            ? "w-28 h-28 sm:w-36 sm:h-36 text-3xl sm:text-4xl mb-5 lg:mb-0"
-            : "w-full aspect-square max-h-48 mb-4 text-3xl"
-        }`}
-        role="img"
-        aria-label={`${name}, ${title} at Kawaii Tredmig Training Institute (KTTI)`}
-      >
-        {initials(name)}
-      </div>
-      <div className="space-y-2 min-w-0">
-        <h3 className="text-lg sm:text-xl font-bold text-neutral-950">{name}</h3>
-        <p className="text-xs sm:text-sm font-mono font-bold tracking-wider uppercase text-[#A71728]">
-          {title}
-        </p>
-        <p className="text-sm text-neutral-600 leading-relaxed">{bio}</p>
-      </div>
-    </article>
-  );
-}
 
 export default function AboutPage() {
   const { t } = useLanguage();
   const { openApply } = useApplyModal();
   const page = t.aboutPage;
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const leadershipPreview = [
+    ...page.leadership.executives.slice(0, 4).map((e) => ({
+      name: e.name,
+      image: e.image,
+      slug: e.slug,
+    })),
+    {
+      name: page.leadership.coo.name,
+      image: page.leadership.coo.image,
+      slug: page.leadership.coo.slug,
+    },
+  ];
 
   return (
     <>
@@ -92,7 +57,7 @@ export default function AboutPage() {
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <DoorLink
-              href="#leadership"
+              href="/leadership/"
               className="px-8 py-3.5 text-sm font-bold tracking-wider uppercase"
             >
               {page.hero.ctaLeadership}
@@ -202,94 +167,48 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* LEADERSHIP */}
+      {/* LEADERSHIP TEASER → dedicated /leadership page */}
       <section id={page.leadership.id} className="py-20 lg:py-28 bg-white scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12 space-y-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-950">
-              {page.leadership.h2}
-            </h2>
-            <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
-              {page.leadership.subcopy}
-            </p>
-          </div>
-
-          <h3 className="text-xs font-mono font-bold tracking-widest uppercase text-[#A71728] mb-6">
-            {page.leadership.executivesHeading}
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            {page.leadership.executives.map((leader) => (
-              <LeaderCard
-                key={leader.slug}
-                name={leader.name}
-                title={leader.title}
-                bio={leader.bio}
-              />
-            ))}
-          </div>
-
-          <div id={page.leadership.coo.id} className="scroll-mt-28 space-y-6">
-            <LeaderCard
-              name={page.leadership.coo.name}
-              title={page.leadership.coo.title}
-              bio={page.leadership.coo.bio}
-              featured
-            />
-            <blockquote className="border-l-4 border-[#A71728] bg-neutral-50 px-6 py-5 sm:px-8 sm:py-6">
-              <Quote className="w-6 h-6 text-[#A71728] mb-3" aria-hidden />
-              <p className="text-lg sm:text-xl font-medium text-neutral-900 leading-relaxed italic">
-                “{page.leadership.coo.pullQuote}”
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="lg:col-span-6 space-y-5">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-950">
+                {page.leadership.h2}
+              </h2>
+              <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+                {page.leadership.index.aboutTeaser}
               </p>
-              <cite className="mt-3 block text-sm font-bold text-neutral-600 not-italic">
-                — {page.leadership.coo.name}
-              </cite>
-            </blockquote>
-          </div>
-
-          <div className="mt-16 pt-12 border-t border-neutral-200">
-            <h3 className="text-xl sm:text-2xl font-bold text-neutral-950 mb-3">
-              {page.leadership.partners.h3}
-            </h3>
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-5 max-w-3xl">
-              {page.leadership.partners.intro}
-            </p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm sm:text-base text-neutral-800">
-              {page.leadership.partners.names.map((name) => (
-                <li key={name} className="font-medium">
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ACCREDITATION */}
-      <section
-        id={page.accreditation.id}
-        className="py-20 lg:py-28 bg-[#F8F9FA] scroll-mt-28"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-950 mb-3">
-            {page.accreditation.h2}
-          </h2>
-          <p className="text-sm font-mono text-neutral-500 mb-8">
-            {page.accreditation.h2Question}
-          </p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl">
-            {page.accreditation.items.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 bg-white border border-neutral-200 p-5 text-sm sm:text-base text-neutral-700"
+              <DoorLink
+                href="/leadership/"
+                className="inline-flex px-8 py-3.5 text-sm font-bold tracking-wider uppercase"
               >
-                <span className="mt-0.5 w-5 h-5 rounded-full bg-[#A71728] text-white flex items-center justify-center shrink-0">
-                  <Check className="w-3 h-3 stroke-[3]" />
-                </span>
-                <span className="leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
+                {page.leadership.index.aboutCta}
+              </DoorLink>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="grid grid-cols-5 gap-2 sm:gap-3">
+                {leadershipPreview.map((person) => (
+                  <Link
+                    key={person.slug}
+                    href={`/leadership/${person.slug}`}
+                    className="relative aspect-[3/4] overflow-hidden bg-neutral-100 border border-neutral-200 hover:border-[#A71728]/50 transition-colors"
+                    aria-label={person.name}
+                  >
+                    {person.image && (
+                      <Image
+                        src={person.image}
+                        alt=""
+                        fill
+                        sizes="120px"
+                        className="object-cover object-top"
+                      />
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -331,29 +250,6 @@ export default function AboutPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CAREERS */}
-      <section id={page.careers.id} className="py-20 lg:py-24 bg-neutral-950 text-white scroll-mt-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl space-y-5">
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
-              {page.careers.h2}
-            </h2>
-            <p className="text-base sm:text-lg text-white/75 leading-relaxed">
-              {page.careers.body}
-            </p>
-            <p className="text-xs font-mono tracking-widest uppercase text-white/40">
-              {page.careers.seoNote}
-            </p>
-            <DoorButton
-              onClick={() => openApply("Japanese Language Academy")}
-              className="mt-2 px-8 py-3.5 text-sm font-bold tracking-wider uppercase"
-            >
-              {page.careers.cta}
-            </DoorButton>
           </div>
         </div>
       </section>
