@@ -1,23 +1,13 @@
-import type { Metadata } from "next";
-import CareersPage from "@/components/CareersPage";
-import { aboutPageEn } from "@/i18n/aboutPage";
+"use client";
 
-const SITE_URL = "https://sswv.org";
-const C = aboutPageEn.careers;
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: `${C.h2} | KTTI`,
-  description: C.body.slice(0, 155),
-  alternates: { canonical: `${SITE_URL}/about/careers` },
-  openGraph: {
-    title: `${C.h2} | KTTI`,
-    description: C.body.slice(0, 155),
-    url: `${SITE_URL}/about/careers`,
-    type: "website",
-    siteName: "Kawaii Tredmig Training Institute",
-  },
-};
-
-export default function CareersRoute() {
-  return <CareersPage />;
+/** Old About submenu URL → /careers/ */
+export default function LegacyCareersRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/careers/");
+  }, [router]);
+  return null;
 }
