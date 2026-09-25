@@ -1,7 +1,7 @@
 import { aboutPageEn, aboutPageJp } from "./aboutPage";
 import { cvPageEn, cvPageJp } from "./cvPage";
 
-export type Lang = "en" | "jp";
+export type Lang = "en" | "bn" | "jp";
 
 export const translations = {
   en: {
@@ -1286,4 +1286,4 @@ export const translations = {
   },
 } as const;
 
-export type Translations = (typeof translations)[Lang];
+export type Translations = (typeof translations)["en"];

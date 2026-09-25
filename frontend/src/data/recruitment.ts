@@ -1,7 +1,8 @@
-/** Bangladesh districts for recruitment registration */
+/** Bangladesh districts — matches Google Form order exactly */
 export const BD_DISTRICTS = [
-  "Bagerhat",
+  "Dhaka",
   "Bandarban",
+  "Bagerhat",
   "Barguna",
   "Barishal",
   "Bhola",

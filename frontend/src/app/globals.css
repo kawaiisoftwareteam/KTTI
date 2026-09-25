@@ -28,6 +28,14 @@ body {
   color: #171717;
 }
 
+html[data-lang="bn"] body {
+  font-family: var(--font-bengali), var(--font-outfit), sans-serif;
+}
+
+html[data-lang="jp"] body {
+  font-family: var(--font-noto-jp), var(--font-outfit), sans-serif;
+}
+
 /* All interactive buttons are square */
 button,
 [role="button"],

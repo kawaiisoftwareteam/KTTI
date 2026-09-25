@@ -60,7 +60,7 @@ export default function CareersIndexPage() {
             <span className="w-8 h-[2px] bg-[#A71728]" />
             <p
               className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#A71728]"
-              style={lang === "jp" ? jpFont : undefined}
+              style={lang === "jp" || lang === "bn" ? jpFont : undefined}
             >
               {C.eyebrow}
             </p>
@@ -157,7 +157,7 @@ export default function CareersIndexPage() {
 
               <h2
                 className="text-2xl sm:text-3xl lg:text-[2rem] font-black tracking-tight text-neutral-950 leading-snug group-hover:text-[#A71728] transition-colors"
-                style={lang === "jp" ? jpFont : undefined}
+                style={lang === "jp" || lang === "bn" ? jpFont : undefined}
               >
                 {I.cardTitle}
               </h2>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Noto_Sans_JP } from "next/font/google";
+import { Outfit, Noto_Sans_JP, Noto_Sans_Bengali } from "next/font/google";
 import SiteShell from "@/components/SiteShell";
 import "./globals.css";
 
@@ -15,6 +15,14 @@ const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "700"],
+  preload: false,
+});
+
+const notoSansBengali = Noto_Sans_Bengali({
+  variable: "--font-bengali",
+  subsets: ["bengali"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
   preload: false,
 });
 
@@ -55,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.className} ${notoSansJP.variable} scroll-smooth antialiased`}
+      className={`${outfit.className} ${notoSansJP.variable} ${notoSansBengali.variable} scroll-smooth antialiased`}
     >
       <body
         className="min-h-screen bg-[#FFFFFF] text-[#111111] font-sans selection:bg-[#A71728] selection:text-white"

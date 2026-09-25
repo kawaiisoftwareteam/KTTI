@@ -1,4 +1,5 @@
-import { aboutPageEn, aboutPageJp } from "@/i18n/aboutPage";
+import { aboutPageEn, aboutPageJp, aboutPageBn } from "@/i18n/aboutPage";
+import type { Lang } from "@/i18n/translations";
 
 export type LeaderRole = "executive" | "coo" | "partner";
 
@@ -13,7 +14,7 @@ export type LeaderProfile = {
 };
 
 function collectLeaders(
-  page: typeof aboutPageEn | typeof aboutPageJp
+  page: typeof aboutPageEn | typeof aboutPageJp | typeof aboutPageBn
 ): LeaderProfile[] {
   const executives: LeaderProfile[] = page.leadership.executives.map(
     (leader) => ({
@@ -42,13 +43,19 @@ function collectLeaders(
   return [...executives, coo, ...partners];
 }
 
-export function getLeaders(lang: "en" | "jp" = "en"): LeaderProfile[] {
-  return collectLeaders(lang === "jp" ? aboutPageJp : aboutPageEn);
+function pageForLang(lang: Lang) {
+  if (lang === "jp") return aboutPageJp;
+  if (lang === "bn") return aboutPageBn;
+  return aboutPageEn;
+}
+
+export function getLeaders(lang: Lang = "en"): LeaderProfile[] {
+  return collectLeaders(pageForLang(lang));
 }
 
 export function getLeaderBySlug(
   slug: string,
-  lang: "en" | "jp" = "en"
+  lang: Lang = "en"
 ): LeaderProfile | undefined {
   return getLeaders(lang).find((leader) => leader.slug === slug);
 }

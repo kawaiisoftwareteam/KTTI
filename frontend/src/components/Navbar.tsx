@@ -138,7 +138,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       role="group"
       aria-label="Language"
     >
-      {(["en", "jp"] as Lang[]).map((code) => {
+      {(["en", "bn", "jp"] as Lang[]).map((code) => {
         const active = lang === code;
         return (
           <button
@@ -156,7 +156,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
             }`}
             aria-pressed={active}
           >
-            {code === "en" ? "EN" : "JP"}
+            {code === "en" ? "EN" : code === "bn" ? "BN" : "JP"}
           </button>
         );
       })}
