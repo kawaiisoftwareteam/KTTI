@@ -6,7 +6,7 @@ import { useApplyModal } from "@/contexts/ApplyModalContext";
 export default function JapanesePage() {
   const { openApply } = useApplyModal();
   return (
-    <div className="pt-16 sm:pt-20">
+    <div className="pt-28">
       <JapaneseHub onOpenApply={() => openApply()} />
     </div>
   );

@@ -4,20 +4,23 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import DoorButton from "@/components/DoorButton";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { Lang } from "@/i18n/translations";
+import { CONTACT_PHONES, WHATSAPP_URL } from "@/data/contact";
 
 interface NavbarProps {
   onOpenApply: () => void;
 }
 
+type NavChild = { label: string; href: string; id?: string };
+
 type NavLink = {
   label: string;
   href: string;
   id: string;
-  children?: { label: string; href: string }[];
+  children?: NavChild[];
 };
 
 export default function Navbar({ onOpenApply }: NavbarProps) {
@@ -39,22 +42,19 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
     return "";
   })();
 
-  const [isScrolled, setIsScrolled] = useState(!isHome);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState(routeActiveId ?? "home");
 
   useEffect(() => {
     if (!isHome) {
-      setIsScrolled(true);
       setActiveSection(routeActiveId ?? "");
       return;
     }
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
       const sections = ["home", "about", "testimonials", "contact"];
-      const scrollPos = window.scrollY + 140;
+      const scrollPos = window.scrollY + 160;
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -74,14 +74,14 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
   }, [isHome, routeActiveId]);
 
   useEffect(() => {
-    if (!aboutOpen) return;
+    if (!openMenu) return;
     const onDoc = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
-      if (target?.closest?.("[data-about-menu]")) return;
-      setAboutOpen(false);
+      if (target?.closest?.("[data-nav-menu]")) return;
+      setOpenMenu(null);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setAboutOpen(false);
+      if (e.key === "Escape") setOpenMenu(null);
     };
     document.addEventListener("mousedown", onDoc);
     document.addEventListener("keydown", onKey);
@@ -89,11 +89,11 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       document.removeEventListener("mousedown", onDoc);
       document.removeEventListener("keydown", onKey);
     };
-  }, [aboutOpen]);
+  }, [openMenu]);
 
   useEffect(() => {
     setMobileMenuOpen(false);
-    setAboutOpen(false);
+    setOpenMenu(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -126,239 +126,217 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
     { label: t.nav.contact, href: "/contact/", id: "contact" },
   ];
 
-  const LangToggle = ({ compact = false }: { compact?: boolean }) => (
-    <div
-      className={`flex items-center rounded-none border overflow-hidden shrink-0 ${
-        compact
-          ? "border-neutral-200"
-          : isScrolled
-            ? "border-neutral-200 bg-white/90"
-            : "border-white/20 bg-black/35 backdrop-blur-md"
-      }`}
-      role="group"
-      aria-label="Language"
-    >
-      {(["en", "bn", "jp"] as Lang[]).map((code) => {
-        const active = lang === code;
-        return (
+  const LangToggle = ({ variant }: { variant: "dark" | "light" }) => (
+    <div className="flex items-center" role="group" aria-label="Language">
+      {(["en", "bn", "jp"] as Lang[]).map((code, i) => (
+        <React.Fragment key={code}>
+          {i > 0 && (
+            <span
+              className={
+                variant === "dark" ? "text-white/20 px-0.5" : "text-neutral-300 px-0.5"
+              }
+            >
+              /
+            </span>
+          )}
           <button
-            key={code}
             type="button"
             onClick={() => setLang(code)}
-            className={`px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition-colors ${
-              active
-                ? "bg-[#A71728] text-white"
-                : compact
-                  ? "text-neutral-600 hover:bg-neutral-100"
-                  : isScrolled
-                    ? "text-neutral-700 hover:bg-neutral-100"
-                    : "text-white/80 hover:bg-white/10"
+            className={`px-1.5 py-0.5 text-xs font-semibold tracking-wider uppercase ${
+              lang === code
+                ? variant === "dark"
+                  ? "text-white"
+                  : "text-[#A71728]"
+                : variant === "dark"
+                  ? "text-white/45 hover:text-white"
+                  : "text-neutral-500 hover:text-neutral-900"
             }`}
-            aria-pressed={active}
+            aria-pressed={lang === code}
           >
             {code === "en" ? "EN" : code === "bn" ? "BN" : "JP"}
           </button>
-        );
-      })}
+        </React.Fragment>
+      ))}
     </div>
   );
 
-  const linkClass = (isActive: boolean) =>
-    `px-1.5 xl:px-2 2xl:px-2.5 py-2 font-semibold tracking-wide rounded-none transition-all duration-200 whitespace-nowrap text-[11px] xl:text-xs 2xl:text-[13px] ${
-      isActive
-        ? "bg-white text-[#A71728] shadow-sm font-bold"
-        : isScrolled
-          ? "text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100"
-          : "text-white/90 hover:text-white hover:bg-white/10"
-    }`;
+  const renderLinks = (onNavigate?: () => void) =>
+    navLinks.map((link) => {
+      const isActive = activeSection === link.id;
+      const isOpen = openMenu === link.id;
+      if (link.children) {
+        return (
+          <div key={link.id} className="relative shrink-0" data-nav-menu>
+            <button
+              type="button"
+              className={`inline-flex items-center gap-1 px-3 xl:px-3.5 py-2 text-sm xl:text-[15px] font-medium whitespace-nowrap ${
+                isActive
+                  ? "text-[#A71728]"
+                  : "text-neutral-600 hover:text-neutral-950"
+              }`}
+              aria-expanded={isOpen}
+              aria-haspopup="menu"
+              onClick={() => setOpenMenu(isOpen ? null : link.id)}
+              onMouseEnter={() => setOpenMenu(link.id)}
+            >
+              {link.label}
+              <ChevronDown
+                className={`w-3.5 h-3.5 opacity-60 transition-transform ${
+                  isOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            {isOpen && (
+              <>
+                <div
+                  className="absolute left-0 right-0 top-full h-2 z-[60]"
+                  onMouseEnter={() => setOpenMenu(link.id)}
+                />
+                <div
+                  className="absolute top-full left-0 pt-1 min-w-[240px] z-[60]"
+                  onMouseEnter={() => setOpenMenu(link.id)}
+                  onMouseLeave={() => setOpenMenu(null)}
+                >
+                  <div
+                    role="menu"
+                    className="bg-white border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] py-1.5"
+                  >
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        role="menuitem"
+                        className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-[#A71728]"
+                        onClick={() => {
+                          setOpenMenu(null);
+                          onNavigate?.();
+                        }}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        );
+      }
+      return (
+        <Link
+          key={link.id}
+          href={link.href}
+          className={`relative shrink-0 px-3 xl:px-3.5 py-2 text-sm xl:text-[15px] font-medium whitespace-nowrap ${
+            isActive ? "text-[#A71728]" : "text-neutral-600 hover:text-neutral-950"
+          }`}
+          onMouseEnter={() => setOpenMenu(null)}
+          onClick={onNavigate}
+        >
+          {link.label}
+          {isActive && (
+            <span className="absolute left-2.5 right-2.5 -bottom-px h-[2px] bg-[#A71728]" />
+          )}
+        </Link>
+      );
+    });
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full py-3 sm:py-4 transition-all duration-300">
-      <div className="relative w-full flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-5 lg:px-6 min-w-0">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full">
+      <div className="hidden lg:flex h-11 items-stretch justify-between bg-black/50 backdrop-blur-xl border-b border-white/10 text-sm">
+        <div className="flex items-center gap-3 px-6 xl:px-8 text-white/70">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[15px] font-medium text-white hover:text-white/80"
+          >
+            <Phone className="w-4 h-4 text-[#25D366]" />
+            {CONTACT_PHONES[0]}
+          </a>
+          <span className="text-white/25">|</span>
+          <span>Dhaka · Tokyo</span>
+        </div>
+        <div className="flex items-stretch">
+          <div className="flex items-center px-4">
+            <LangToggle variant="dark" />
+          </div>
+          <button
+            type="button"
+            onClick={onOpenApply}
+            className="px-6 bg-[#A71728]/90 backdrop-blur-sm text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#A71728]"
+          >
+            {t.nav.applyNow}
+          </button>
+        </div>
+      </div>
+
+      <div className="h-16 sm:h-[4.25rem] flex items-center justify-between gap-4 px-4 sm:px-6 xl:px-8 bg-white/65 backdrop-blur-2xl border-b border-white/40">
         <Link
           href="/"
-          className="flex items-center select-none shrink-0 z-10 min-w-0"
+          className="flex items-center select-none shrink-0"
           aria-label="KTTI — Kawaii Tredmig Training Institute"
           onClick={() => setMobileMenuOpen(false)}
         >
           <Image
-            src={isScrolled ? "/ktti-logo.svg" : "/ktti-logo-light.svg"}
+            src="/ktti-logo.svg"
             alt="KTTI"
             width={400}
             height={132}
             priority
-            className="h-10 sm:h-12 xl:h-14 2xl:h-16 w-auto max-w-[42vw] sm:max-w-none object-contain object-left"
+            className="h-9 sm:h-10 w-auto max-w-[42vw] object-contain object-left"
             style={{ width: "auto" }}
           />
         </Link>
 
-        {/* Desktop nav — xl+ only (too many links for lg) */}
-        <nav
-          className={`hidden xl:flex flex-1 items-center justify-center min-w-0 mx-2 2xl:mx-4 ${
-            lang === "jp" ? "gap-0" : "gap-0.5"
-          } rounded-xl border transition-all duration-300 p-1 xl:p-1.5 2xl:p-2 max-w-full overflow-visible ${
-            isScrolled
-              ? "bg-white/95 backdrop-blur-2xl border-neutral-200/70 shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
-              : "bg-black/35 backdrop-blur-md border-white/15"
-          }`}
-        >
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
-            if (link.children) {
-              return (
-                <div key={link.id} className="relative shrink-0" data-about-menu>
-                  <button
-                    type="button"
-                    className={`${linkClass(isActive)} inline-flex items-center gap-0.5 cursor-pointer`}
-                    aria-expanded={aboutOpen}
-                    aria-haspopup="menu"
-                    onClick={() => setAboutOpen((o) => !o)}
-                    onMouseEnter={() => setAboutOpen(true)}
-                  >
-                    {link.label}
-                    <ChevronDown
-                      className={`w-3 h-3 opacity-70 transition-transform ${
-                        aboutOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  {aboutOpen && (
-                    <>
-                      {/* Keep hover alive across the gap */}
-                      <div
-                        className="absolute left-0 right-0 top-full h-2 z-[60]"
-                        onMouseEnter={() => setAboutOpen(true)}
-                      />
-                      <div
-                        className="absolute top-full left-0 pt-2 min-w-[240px] z-[60]"
-                        onMouseEnter={() => setAboutOpen(true)}
-                        onMouseLeave={() => setAboutOpen(false)}
-                      >
-                        <div
-                          role="menu"
-                          className="bg-white border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.14)] py-2"
-                        >
-                          <Link
-                            href={link.href}
-                            role="menuitem"
-                            className="block px-4 py-2.5 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-[#A71728]"
-                            onClick={() => setAboutOpen(false)}
-                          >
-                            {link.label}
-                          </Link>
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              role="menuitem"
-                              className="block px-4 py-2.5 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-[#A71728]"
-                              onClick={() => setAboutOpen(false)}
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              );
-            }
-            return (
-              <Link
-                key={link.id}
-                href={link.href}
-                className={`${linkClass(isActive)} shrink-0`}
-                onMouseEnter={() => setAboutOpen(false)}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        <nav className="hidden lg:flex flex-1 items-center justify-end min-w-0">
+          {renderLinks()}
         </nav>
 
-        <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0 z-10">
-          <LangToggle />
-          <a
-            href="https://wa.me/8801817047247"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`flex items-center gap-1.5 font-bold px-2 2xl:px-3 py-2 rounded-none transition-all whitespace-nowrap border text-xs 2xl:text-sm ${
-              isScrolled
-                ? "text-neutral-800 bg-white/90 hover:bg-white border-neutral-200"
-                : "text-white bg-black/35 hover:bg-black/45 border-white/15 backdrop-blur-md"
-            }`}
-          >
-            <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#25D366]" />
-            </span>
-            {t.nav.hotline}
-          </a>
+        <div className="flex lg:hidden items-center gap-2 shrink-0">
+          <LangToggle variant="light" />
           <DoorButton
             onClick={onOpenApply}
-            className="group px-2.5 2xl:px-4 py-2 font-bold tracking-wider uppercase shadow-md shadow-[#A71728]/25 whitespace-nowrap text-xs 2xl:text-sm"
-          >
-            <span>{t.nav.applyNow}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </DoorButton>
-        </div>
-
-        {/* Mobile / tablet bar */}
-        <div className="flex xl:hidden items-center gap-1.5 sm:gap-2 shrink-0">
-          <LangToggle compact={isScrolled} />
-          <DoorButton
-            onClick={onOpenApply}
-            className="hidden min-[400px]:inline-flex px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider"
+            className="hidden min-[400px]:inline-flex px-3 py-2 text-xs font-bold uppercase tracking-wider"
           >
             {t.nav.apply}
           </DoorButton>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((o) => !o)}
-            className={`p-2 sm:p-2.5 rounded-none transition-colors border ${
-              isScrolled
-                ? "text-neutral-900 bg-white/90 border-neutral-200"
-                : "text-white bg-white/10 border-white/20"
-            }`}
+            className="p-2 text-neutral-900 border border-neutral-200"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
-            ) : (
-              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-            )}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden absolute left-0 right-0 top-full px-3 sm:px-4 pb-4">
-          <div className="max-h-[min(80vh,calc(100dvh-5rem))] overflow-y-auto rounded-xl bg-white border border-neutral-200 p-3 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.14)]">
-            <div className="flex flex-col space-y-0.5">
+        <div className="lg:hidden border-b border-neutral-200 bg-white">
+          <div className="max-h-[min(80vh,calc(100dvh-5rem))] overflow-y-auto px-4 py-3">
+            <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.id}>
                   <Link
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`py-3 px-3 sm:px-4 text-base sm:text-lg font-semibold rounded-lg transition-all flex items-center justify-between ${
+                    className={`py-3 text-[15px] font-medium ${
                       activeSection === link.id
-                        ? "bg-[#A71728]/10 text-[#A71728] font-bold"
-                        : "text-neutral-800 hover:bg-neutral-100"
+                        ? "text-[#A71728]"
+                        : "text-neutral-800"
                     }`}
                   >
-                    <span>{link.label}</span>
+                    {link.label}
                   </Link>
                   {link.children && (
-                    <div className="ml-2 sm:ml-3 mb-2 border-l border-neutral-200 pl-3 space-y-0.5">
+                    <div className="ml-3 mb-2 border-l border-neutral-200 pl-3">
                       {link.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block py-2 px-3 text-sm font-medium text-neutral-600 hover:text-[#A71728]"
+                          className="block py-2 text-sm text-neutral-600"
                         >
                           {child.label}
                         </Link>
@@ -367,28 +345,15 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
                   )}
                 </div>
               ))}
-
-              <div className="pt-4 mt-2 border-t border-neutral-100 flex flex-col gap-2">
-                <a
-                  href="https://wa.me/8801817047247"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 text-center font-bold text-sm sm:text-base rounded-none flex items-center justify-center gap-2"
-                >
-                  <Phone className="w-4 h-4 text-[#25D366]" />
-                  {t.nav.hotline}
-                </a>
-                <DoorButton
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenApply();
-                  }}
-                  className="w-full py-3.5 font-bold text-sm sm:text-base uppercase tracking-wider"
-                >
-                  {t.nav.applyNow}
-                  <ArrowUpRight className="w-4 h-4" />
-                </DoorButton>
-              </div>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 py-3 border-t border-neutral-100 text-sm font-medium text-neutral-800 flex items-center gap-2"
+              >
+                <Phone className="w-4 h-4 text-[#25D366]" />
+                {t.nav.hotline} · {CONTACT_PHONES[0]}
+              </a>
             </div>
           </div>
         </div>
