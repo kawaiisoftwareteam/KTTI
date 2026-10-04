@@ -44,12 +44,6 @@ export const bnTranslations = {
     cta: "আবেদন করুন",
     learnMore: "আরও জানুন",
   },
-  programs: {
-    ...translations.en.programs,
-    eyebrow: "একাডেমিক প্রোগ্রাম",
-    title: "আপনার",
-    titleAccent: "জাপান ক্যারিয়ার",
-  },
   ssw: {
     ...translations.en.ssw,
     eyebrow: "SSW পাথওয়ে",

@@ -270,7 +270,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
         </div>
       </div>
 
-      <div className="h-16 sm:h-[4.25rem] flex items-center justify-between gap-4 px-4 sm:px-6 xl:px-8 bg-white/65 backdrop-blur-2xl border-b border-white/40">
+      <div className={`h-16 sm:h-[4.25rem] flex items-center justify-between gap-4 px-4 sm:px-6 xl:px-8 border-b border-white/40 ${mobileMenuOpen ? "bg-white" : "bg-white/65 backdrop-blur-2xl"}`}>
         <Link
           href="/"
           className="flex items-center select-none shrink-0"
@@ -313,15 +313,15 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-neutral-200 bg-white">
-          <div className="max-h-[min(80vh,calc(100dvh-5rem))] overflow-y-auto px-4 py-3">
+        <div className="lg:hidden fixed inset-x-0 top-16 sm:top-[4.25rem] bottom-0 z-40 overflow-y-auto bg-white">
+          <div className="px-4 py-2 pb-8">
             <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.id}>
                   <Link
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`py-3 text-[15px] font-medium ${
+                    className={`block py-3 text-[15px] font-medium ${
                       activeSection === link.id
                         ? "text-[#A71728]"
                         : "text-neutral-800"

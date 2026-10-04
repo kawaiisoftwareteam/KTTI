@@ -4,14 +4,14 @@ import CoursesPage from "@/components/CoursesPage";
 const SITE_URL = "https://sswv.org";
 
 export const metadata: Metadata = {
-  title: "Courses | Kawaii Tredmig Training Institute (KTTI)",
+  title: "15 Day Basic Japanese | Kawaii Tredmig Training Institute (KTTI)",
   description:
-    "Explore KTTI academic courses for Japanese language, SSW skill training, and Japan career preparation in Dhaka.",
+    "KTTI-এর ১৫ দিনের বেসিক জাপানি কোর্স। আবাসিক ৭,৫০০ টাকা — থাকা, খাওয়া ও শেখা। অনাবাসিক ২,৫০০ টাকা — শুধু কোর্স।",
   alternates: { canonical: `${SITE_URL}/courses` },
   openGraph: {
-    title: "Courses | KTTI",
+    title: "15 Day Basic Japanese | KTTI",
     description:
-      "Japanese language and SSW vocational courses at Kawaii Tredmig Training Institute.",
+      "মাত্র ১৫ দিনে জাপানি ভাষার বেসিক। আবাসিক ৭,৫০০ অথবা অনাবাসিক ২,৫০০।",
     url: `${SITE_URL}/courses`,
     type: "website",
     siteName: "Kawaii Tredmig Training Institute",
