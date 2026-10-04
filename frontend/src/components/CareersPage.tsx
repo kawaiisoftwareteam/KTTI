@@ -166,9 +166,8 @@ export default function CareersPage() {
               <Image
                 src={C.index.cardImage}
                 alt={C.index.cardImageAlt}
-                width={1469}
-                height={1232}
-                priority
+                width={1120}
+                height={940}
                 sizes="(max-width: 1024px) 100vw, 560px"
                 className="w-full h-auto"
               />

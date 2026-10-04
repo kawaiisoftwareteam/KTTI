@@ -15,9 +15,9 @@ export default function JapanBanner({ onOpenApply }: JapanBannerProps) {
     <section className="relative w-full py-24 lg:py-36 bg-neutral-100 text-neutral-900 overflow-hidden flex items-center justify-center border-y border-neutral-200">
       {/* Background Image with Light Overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-fixed bg-center scale-105 opacity-15"
+        className="absolute inset-0 bg-cover bg-center scale-105 opacity-15"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=2070&auto=format&fit=crop')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fm=webp&fit=crop&w=1200&q=60')`,
         }}
       />
       

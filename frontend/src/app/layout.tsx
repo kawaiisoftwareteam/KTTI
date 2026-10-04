@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Noto_Sans_JP, Noto_Sans_Bengali } from "next/font/google";
+import { Outfit } from "next/font/google";
 import SiteShell from "@/components/SiteShell";
 import "./globals.css";
 
@@ -8,22 +8,6 @@ const outfit = Outfit({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700", "900"],
-});
-
-const notoSansJP = Noto_Sans_JP({
-  variable: "--font-noto-jp",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "700"],
-  preload: false,
-});
-
-const notoSansBengali = Noto_Sans_Bengali({
-  variable: "--font-bengali",
-  subsets: ["bengali"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -63,8 +47,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.className} ${notoSansJP.variable} ${notoSansBengali.variable} scroll-smooth antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${outfit.className} scroll-smooth antialiased`}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        />
+      </head>
       <body
         className="min-h-screen bg-[#FFFFFF] text-[#111111] font-sans selection:bg-[#A71728] selection:text-white"
         suppressHydrationWarning

@@ -338,7 +338,7 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "Social Welfare Care Home",
     location: "Tokyo, Japan",
     image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fm=webp&fit=crop&w=480&q=70",
     rating: 5,
     program: "SSW Caregiver + JLPT N4",
   },
@@ -351,7 +351,7 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "Global Dining Hospitality Group",
     location: "Nagoya, Japan",
     image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fm=webp&fit=crop&w=480&q=70",
     rating: 5,
     program: "SSW Food Service + Business Kaiwa",
   },
@@ -364,7 +364,7 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "Taisei Subcontractor Partner",
     location: "Osaka, Japan",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fm=webp&fit=crop&w=480&q=70",
     rating: 5,
     program: "SSW Construction + JLPT N4",
   },

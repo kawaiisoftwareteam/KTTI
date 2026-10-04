@@ -45,12 +45,16 @@ export default function CoursesPage() {
       className="pt-28"
       style={{ fontFamily: "var(--font-bengali), var(--font-outfit), sans-serif" }}
     >
-      <div className="bg-neutral-950 overflow-hidden">
+      <div className="bg-white overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/Form%20Bannner%20S.png"
+          src="/courses/basic-japanese.webp"
           alt="মাত্র ১৫ দিনে জাপানি ভাষার বেসিক শিখুন — KTTI"
-          className="w-full h-40 min-[400px]:h-48 sm:h-64 md:h-auto object-cover object-[center_20%] md:object-contain"
+          width={1600}
+          height={640}
+          fetchPriority="high"
+          decoding="async"
+          className="mx-auto block h-auto w-full max-w-5xl"
         />
       </div>
 
@@ -107,10 +111,27 @@ export default function CoursesPage() {
 
           <div
             id="register"
-            className="bg-white border border-[#E8D5D5] p-4 min-[400px]:p-5 sm:p-8 scroll-mt-28 min-w-0"
+            className="bg-white border border-[#E8D5D5] p-4 min-[400px]:p-5 sm:p-8 scroll-mt-28 min-w-0 self-start"
           >
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <h2 className="text-xl sm:text-2xl font-black text-neutral-950">
+                  এখনই রেজিস্ট্রেশন করুন
+                </h2>
+                <p className="text-sm text-neutral-600 mt-1">
+                  ফোন দিয়ে স্ক্যান করেও রেজিস্ট্রেশন করা যায়।
+                </p>
+              </div>
+              <img
+                src="/courses/register-qr.svg"
+                alt="রেজিস্ট্রেশন QR কোড"
+                width={112}
+                height={112}
+                className="h-24 w-24 sm:h-28 sm:w-28 shrink-0 border border-neutral-200 bg-white p-1"
+              />
+            </div>
             {isSubmitted ? (
-              <div className="text-center space-y-3 py-8">
+              <div className="text-center space-y-4 py-6">
                 <CheckCircle className="w-12 h-12 text-[#A71728] mx-auto" />
                 <h2 className="text-2xl font-black text-neutral-950">
                   রেজিস্ট্রেশন জমা হয়েছে
@@ -118,32 +139,36 @@ export default function CoursesPage() {
                 <p className="text-sm text-neutral-600">
                   ধন্যবাদ, {name}। আমরা হোয়াটসঅ্যাপে যোগাযোগ করব।
                 </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setName("");
+                    setMobile("");
+                    setArea("");
+                    setCourse("");
+                    setIsSubmitted(false);
+                  }}
+                  className="inline-flex min-h-11 items-center justify-center border border-[#A71728] px-5 text-sm font-bold text-[#A71728] hover:bg-[#A71728] hover:text-white"
+                >
+                  আবার রেজিস্ট্রেশন করুন
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-black text-neutral-950">
-                    এখনই রেজিস্ট্রেশন করুন
-                  </h2>
-                  <p className="text-sm text-neutral-600 mt-1">
-                    আপনার স্বপ্নের জাপান, শুরু হোক KTTI থেকে।
-                  </p>
-                </div>
-
                 <fieldset>
                   <legend className={labelClass}>
                     আপনি কোন কোর্সের জন্য আগ্রহী *
                   </legend>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="flex flex-col gap-3">
                     {BASIC_JP_COURSES.map((opt) => {
                       const active = course === opt.value;
                       return (
                         <label
                           key={opt.value}
-                          className={`cursor-pointer border p-4 transition-colors ${
+                          className={`flex cursor-pointer items-stretch border ${
                             active
                               ? "border-[#A71728] bg-[#A71728] text-white"
-                              : "border-[#E8D5D5] bg-white text-neutral-900 hover:border-[#A71728]/40"
+                              : "border-neutral-200 bg-white text-neutral-950 hover:bg-[#FAF7F5]"
                           }`}
                         >
                           <input
@@ -154,14 +179,16 @@ export default function CoursesPage() {
                             checked={active}
                             onChange={() => setCourse(opt.value)}
                           />
-                          <span className="block text-xs font-bold uppercase tracking-wide opacity-80">
-                            {opt.title}
-                          </span>
-                          <span className="block text-2xl font-black mt-1">
-                            ৳{opt.price}
-                          </span>
-                          <span className={`block text-xs mt-1 ${active ? "text-white/80" : "text-neutral-500"}`}>
-                            {opt.detail}
+                          <span className="flex min-w-0 flex-1 items-center justify-between gap-4 px-4 py-3.5">
+                            <span className="min-w-0">
+                              <span className="block text-sm font-bold">{opt.title}</span>
+                              <span className={`block text-xs mt-0.5 ${active ? "text-white/75" : "text-neutral-500"}`}>
+                                {opt.detail}
+                              </span>
+                            </span>
+                            <span className="shrink-0 text-xl sm:text-2xl font-black tabular-nums">
+                              ৳{opt.price}
+                            </span>
                           </span>
                         </label>
                       );

@@ -74,6 +74,10 @@ export default function Testimonials() {
                 <img
                   src={current.image}
                   alt={current.name}
+                  width={480}
+                  height={480}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

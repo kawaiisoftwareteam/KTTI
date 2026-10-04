@@ -33,7 +33,9 @@ export default function AboutPage() {
       <section className="relative min-h-[70vh] lg:min-h-[85vh] flex items-end overflow-hidden bg-neutral-950">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fm=webp&fit=crop&w=1600&q=70"
+          fetchPriority="high"
+          decoding="async"
           alt={page.hero.imageAlt}
           className="absolute inset-0 w-full h-full object-cover"
         />

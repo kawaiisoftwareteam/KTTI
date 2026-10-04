@@ -24,6 +24,7 @@ export default function Hero({ onOpenApply }: HeroProps) {
           loop
           muted
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover pointer-events-none select-none"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/40" />

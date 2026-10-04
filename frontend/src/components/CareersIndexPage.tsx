@@ -122,9 +122,8 @@ export default function CareersIndexPage() {
               <Image
                 src={I.cardImage}
                 alt={I.cardImageAlt}
-                width={1469}
-                height={1232}
-                priority
+                width={1120}
+                height={940}
                 sizes="(max-width: 768px) 100vw, 420px"
                 className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]"
               />

@@ -7,10 +7,10 @@ export const BASIC_JP_FORM_ACTION =
   "https://docs.google.com/forms/d/e/1FAIpQLSeFVw_2B9E__yRXv5TZ61MU88O44MnHJ1bsAk-ET-F_Arxd5Q/formResponse";
 
 export const BASIC_JP_ENTRIES = {
-  name: "entry.214797096",
-  mobile: "entry.1674191636",
-  area: "entry.1939487401",
-  course: "entry.1524168832",
+  name: "entry.1575055194",
+  mobile: "entry.801073070",
+  area: "entry.870329832",
+  course: "entry.1496068859",
 } as const;
 
 export const BASIC_JP_COURSES = [
