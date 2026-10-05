@@ -5,6 +5,7 @@ export type { CvLangPref };
 const formEn = {
   langPrefLabel: "CV Language",
   langEn: "English",
+  langBn: "বাংলা",
   langJp: "日本語",
   sections: {
     personal: "Personal Information",
@@ -92,6 +93,7 @@ const formEn = {
 const formJp = {
   langPrefLabel: "履歴書の言語",
   langEn: "English",
+  langBn: "বাংলা",
   langJp: "日本語",
   sections: {
     personal: "個人情報",
@@ -253,6 +255,108 @@ export const previewLabels = {
   other: "OTHER",
 };
 
+const formBn = {
+  langPrefLabel: "CV-এর ভাষা",
+  langEn: "English",
+  langBn: "বাংলা",
+  langJp: "日本語",
+  sections: {
+    personal: "ব্যক্তিগত তথ্য",
+    education: "শিক্ষা",
+    work: "কাজের ইতিহাস",
+    language: "ভাষার দক্ষতা",
+    details: "ব্যক্তিগত বিবরণ",
+    specialty: "বিশেষত্ব / প্রযুক্তি",
+  },
+  photo: {
+    title: "ছবি",
+    hint: "পাসপোর্ট স্টাইলের ছবি আপলোড করুন (JPG/PNG)। বর্গাকার বা ৩:৪ ভালো।",
+    upload: "ছবি আপলোড",
+    change: "ছবি বদলান",
+    remove: "মুছুন",
+  },
+  fields: {
+    phoneticName: "ফুরিগানা / উচ্চারণ",
+    name: "পুরো নাম",
+    birthday: "জন্মতারিখ (YYYY/MM/DD)",
+    age: "বয়স",
+    sex: "লিঙ্গ",
+    sexMale: "পুরুষ",
+    sexFemale: "নারী",
+    sexOther: "অন্যান্য",
+    sexBlank: "—",
+    currentAddress: "বর্তমান ঠিকানা",
+    hometown: "নিজ এলাকা",
+    tel: "ফোন",
+    email: "ইমেইল",
+    enterYear: "ভর্তির বছর",
+    graduateYear: "পাসের বছর",
+    course: "কোর্স / ডিগ্রি (যেমন S.S.C, Diploma)",
+    school: "স্কুলের নাম",
+    major: "বিষয় / বিশেষত্ব",
+    periodStart: "শুরু (YYYY/MM)",
+    periodEnd: "শেষ (অথবা চলমান)",
+    company: "কোম্পানির নাম",
+    jobType: "কাজের ধরন",
+    duties: "দায়িত্ব",
+    jpLevel: "জাপানি লেভেল (N1–N5 / অন্যান্য)",
+    jpReading: "জাপানি — পড়া",
+    jpSpeaking: "জাপানি — বলা",
+    jpWriting: "জাপানি — লেখা",
+    enLevel: "ইংরেজি লেভেল",
+    enReading: "ইংরেজি — পড়া",
+    enSpeaking: "ইংরেজি — বলা",
+    enWriting: "ইংরেজি — লেখা",
+    otherLanguages: "অন্যান্য ভাষা",
+    fatherName: "বাবার নাম",
+    motherName: "মায়ের নাম",
+    nationality: "জাতীয়তা",
+    maritalStatus: "বৈবাহিক অবস্থা",
+    nationalId: "জাতীয় পরিচয়পত্র",
+    passportNo: "পাসপোর্ট নম্বর",
+    permanentAddress: "স্থায়ী ঠিকানা",
+    specialties: "বিশেষ প্রযুক্তি / ক্ষেত্র (প্রতি লাইনে একটি)",
+  },
+  actions: {
+    save: "খসড়া সংরক্ষণ",
+    saved: "সংরক্ষিত!",
+    downloadPdf: "PDF ডাউনলোড",
+    downloading: "PDF তৈরি হচ্ছে…",
+    clear: "ফর্ম মুছুন",
+    clearConfirm: "সব ঘর মুছে ফেলবেন? সংরক্ষিত খসড়াও চলে যাবে।",
+    preview: "প্রিভিউ",
+    edit: "ফর্ম এডিট",
+    addRow: "সারি যোগ",
+    remove: "মুছুন",
+  },
+  hero: {
+    eyebrow: "RESUME BUILDER • 履歴書",
+    title: "জাপানি CV তৈরি করুন",
+    subtitle:
+      "রিরেকিশো ধরনের সিভি, সাথে লাইভ প্রিভিউ। ভাষা বদলান, ছবি দিন, খসড়া রাখুন এবং PDF নামান।",
+  },
+  toast: {
+    saved: "এই ডিভাইসে খসড়া সংরক্ষিত হয়েছে।",
+    cleared: "ফর্ম মুছে ফেলা হয়েছে।",
+    pdfReady: "PDF ডাউনলোড হয়েছে।",
+    pdfError: "PDF তৈরি হয়নি। আবার চেষ্টা করুন।",
+  },
+};
+
+export const cvPageBn = {
+  meta: {
+    title: "জাপানি সিভি তৈরি | KTTI",
+    description:
+      "অনলাইনে জাপানি ধাঁচের সিভি (রিরেকিশো) তৈরি করুন। ছবি দিন, সাথে সাথে দেখুন, খসড়া রাখুন এবং PDF নামান।",
+    ogTitle: "CV তৈরি — জাপানি সিভি | KTTI",
+    ogDescription:
+      "SSW ও পড়াশোনার প্রার্থীদের জন্য বিনামূল্যে জাপানি সিভি। প্রিভিউ, সংরক্ষণ ও PDF।",
+  },
+  ...formBn,
+};
+
 export function getFormCopy(lang: CvLangPref) {
-  return lang === "jp" ? formJp : formEn;
+  if (lang === "jp") return formJp;
+  if (lang === "bn") return formBn;
+  return formEn;
 }

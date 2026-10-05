@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CoursesHub from "@/components/CoursesHub";
+import CoursesPage from "@/components/CoursesPage";
 
 const SITE_URL = "https://sswv.org";
 
@@ -18,5 +19,12 @@ export const metadata: Metadata = {
 };
 
 export default function CoursesRoute() {
-  return <CoursesHub />;
+  return (
+    <>
+      <div className="pt-24 bg-white">
+        <CoursesPage />
+      </div>
+      <CoursesHub />
+    </>
+  );
 }

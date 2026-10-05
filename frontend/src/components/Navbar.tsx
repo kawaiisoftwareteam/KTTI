@@ -63,7 +63,7 @@ const LangToggle = ({ variant }: { variant: "dark" | "light" }) => {
 };
 
 export default function Navbar({ onOpenApply }: NavbarProps) {
-  const { lang, setLang, t } = useLanguage();
+  const { t } = useLanguage();
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname === "";
 
@@ -145,43 +145,43 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navLinks: NavLink[] = [
-    { label: t.nav.home || "Home", href: "/", id: "home" },
+    { label: t.nav.home, href: "/", id: "home" },
     {
-      label: t.nav.about || "About Institute",
+      label: t.nav.aboutInstitute,
       href: "/about/",
       id: "about",
       children: [
-        { label: "About Institute", href: "/about/" },
-        { label: "Leadership", href: "/leadership/" },
+        { label: t.nav.aboutInstitute, href: "/about/" },
+        { label: t.nav.leadership, href: "/leadership/" },
       ],
     },
     {
-      label: "Courses",
+      label: t.nav.coursesMenu,
       href: "/courses/",
       id: "programs",
       children: [
-        { label: "Courses Hub", href: "/courses/" },
-        { label: "Japanese Language Course", href: "/courses/japanese-language-course/" },
-        { label: "SSW Preparation Course", href: "/courses/ssw-preparation-course/" },
-        { label: "Interview Preparation", href: "/courses/interview-preparation/" },
-        { label: "Student Visa Preparation", href: "/courses/student-visa-preparation/" },
-        { label: "Weekly Mock Test", href: "/courses/weekly-mock-test/" },
-        { label: "Online Mock Interview", href: "/courses/online-mock-interview/" },
+        { label: t.nav.coursesHub, href: "/courses/" },
+        { label: t.nav.japaneseCourse, href: "/courses/japanese-language-course/" },
+        { label: t.nav.sswCourse, href: "/courses/ssw-preparation-course/" },
+        { label: t.nav.interviewCourse, href: "/courses/interview-preparation/" },
+        { label: t.nav.studentVisaCourse, href: "/courses/student-visa-preparation/" },
+        { label: t.nav.weeklyMock, href: "/courses/weekly-mock-test/" },
+        { label: t.nav.onlineMock, href: "/courses/online-mock-interview/" },
       ],
     },
     {
-      label: "Facilities",
+      label: t.nav.facilities,
       href: "/residential-facility/",
       id: "facilities",
       children: [
-        { label: "Residential Facility", href: "/residential-facility/" },
-        { label: "Non-Residential Course", href: "/non-residential-course/" },
+        { label: t.nav.residential, href: "/residential-facility/" },
+        { label: t.nav.nonResidential, href: "/non-residential-course/" },
       ],
     },
-    { label: "Our Teachers", href: "/our-teachers/", id: "teachers" },
-    { label: "Japan Job Placement", href: "/japan-job-placement/", id: "jobs" },
-    { label: "Success Stories", href: "/success-stories/", id: "success" },
-    { label: t.nav.contact || "Contact", href: "/contact/", id: "contact" },
+    { label: t.nav.teachers, href: "/our-teachers/", id: "teachers" },
+    { label: t.nav.jobPlacement, href: "/japan-job-placement/", id: "jobs" },
+    { label: t.nav.generateCv, href: "/cv/", id: "cv" },
+    { label: t.nav.contact, href: "/contact/", id: "contact" },
   ];
 
 
@@ -286,7 +286,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
             {CONTACT_PHONES[0]}
           </a>
           <span className="text-white/25">|</span>
-          <span>Dhaka · Tokyo</span>
+          <span>{t.nav.dhakaTokyo}</span>
         </div>
         <div className="flex items-stretch">
           <div className="flex items-center px-4">
@@ -296,7 +296,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
             href="/admission"
             className="px-6 py-2.5 flex items-center justify-center bg-[#A71728]/90 backdrop-blur-sm text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#A71728]"
           >
-            Admission
+            {t.nav.admission}
           </Link>
         </div>
       </div>
@@ -329,7 +329,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
             href="/admission"
             className="hidden min-[400px]:inline-flex px-3 py-2 text-xs font-bold uppercase tracking-wider bg-[#A71728] text-white"
           >
-            Admission
+            {t.nav.admission}
           </Link>
           <button
             type="button"

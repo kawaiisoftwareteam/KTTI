@@ -262,6 +262,9 @@ export const aboutPageEn = {
     event: {
       title: "Real Simulated Interview",
       subtitle: "Professional · Practical · Japan Ready",
+      interviewerLabel: "Interviewer",
+      dateLabel: "Date",
+      placeLabel: "Place",
       interviewer: "Mr. KONDO Masahiro",
       interviewerOrg: "Kawaii Group, Tokyo, Japan",
       date: "30 September (TBD)",
@@ -652,6 +655,9 @@ export const aboutPageJp = {
     event: {
       title: "リアル模擬面接",
       subtitle: "Professional · Practical · Japan Ready",
+      interviewerLabel: "面接官",
+      dateLabel: "日付",
+      placeLabel: "場所",
       interviewer: "Mr. KONDO Masahiro",
       interviewerOrg: "Kawaii Group, Tokyo, Japan",
       date: "9月30日（予定）",
@@ -853,7 +859,36 @@ export const aboutPageBn = {
   leadership: {
     ...aboutPageEn.leadership,
     h2: "শাসন ও নেতৃত্ব",
+    subcopy:
+      "KTTI-এর পরিচালনায় এভিয়েশন, ট্রাভেল, আইন, ফিন্যান্স ও আন্তর্জাতিক ব্যবসার পার্টনার বোর্ড আছে। দৈনন্দিন একাডেমিক ও অপারেশনাল নেতৃত্ব একটি নির্বাহী দলের হাতে।",
     executivesHeading: "নির্বাহী নেতৃত্ব",
+    executives: [
+      { name: "Biswas Jahangir Alam", title: "চেয়ারম্যান", bio: "KTTI-এর কৌশলগত দিক ও প্রাতিষ্ঠানিক নেতৃত্ব দেন। সরকার, নিয়ন্ত্রক সংস্থা ও শিল্পের সামনে ইনস্টিটিউটের প্রতিনিধিত্ব করেন এবং কাওয়াই গ্রুপের অংশ হিসেবে দীর্ঘমেয়াদি বৃদ্ধি পরিচালনা করেন।", slug: "chairman", image: "/leaders/biswas-jahangir-alam.webp" },
+      { name: "Md Habib Ullah Babul", title: "ভাইস চেয়ারম্যান", bio: "প্রাতিষ্ঠানিক অংশীদারিত্ব ও ব্যবসা উন্নয়নের নেতৃত্ব দেন। KTTI-এর গ্র্যাজুয়েটদের জাপানের নিয়োগকর্তার সাথে যুক্ত করেন।", slug: "vice-chairman", image: "/leaders/habibullah-babul.webp" },
+      { name: "Captain Quamrul Hasan Joarder", title: "ভাইস চেয়ারম্যান", bio: "এভিয়েশন ও আন্তর্জাতিক অপারেশনের অভিজ্ঞতা নিয়ে KTTI-এর শাসনে আসেন। বিদেশে প্লেসমেন্ট ও যাতায়াতের পথকে সহায়তা করেন।", slug: "vice-chairman-aviation", image: "/leaders/captain-joarder.webp" },
+      { name: "Md. Shafiuddin", title: "ম্যানেজিং ডিরেক্টর", bio: "KTTI-এর দৈনন্দিন ব্যবস্থাপনা, প্রশাসন ও অপারেশন — ভর্তি, একাডেমিক, কমপ্লায়েন্স ও আর্থিক তদারকি।", slug: "managing-director", image: "/leaders/md-shafiuddin.webp" },
+      { name: "Dewan Samir", title: "পার্টনার ও প্রধান নির্বাহী", bio: "ব্যবসা উন্নয়ন, আন্তর্জাতিক সম্পর্ক ও কৌশলগত বৃদ্ধি চালান — জাপানি নিয়োগকর্তা, রেজিস্টার্ড সাপোর্ট অর্গানাইজেশন (RSO) ও সহযোগী প্রতিষ্ঠানের সাথে।", slug: "ceo", image: "/leaders/dewan-samir.webp" },
+      { name: "Tajul Islam", title: "ওভারসিজ ডিরেক্টর", bio: "গ্র্যাজুয়েট জাপানে যাওয়ার পর আন্তর্জাতিক সম্পর্ক ও প্রার্থীর পথ দেখেন। বিদেশি পার্টনার ও সাপোর্ট নেটওয়ার্কের সাথে সমন্বয় করেন।", slug: "overseas-director", image: "/leaders/tajul-islam.webp" },
+    ],
+    coo: {
+      ...aboutPageEn.leadership.coo,
+      title: "চিফ অপারেটিং অফিসার, কাওয়াই গ্রুপ",
+      bio: "বিমান হলিডেজ, TREDMIG Co. Ltd. এবং KTTIসহ কাওয়াই গ্রুপের অপারেশন দেখেন। এভিয়েশন, মিডিয়া, এনজিও, সাংবাদিকতা, আইটি ও শিক্ষায় কাজ করেছেন। KTTI-এর কাজের দর্শন: এয়ারলাইনের রুট নেটওয়ার্কের মতো শৃঙ্খলায় প্রশিক্ষণ গড়া।",
+      pullQuote: "একটি প্রশিক্ষণ ইনস্টিটিউটের আসল পণ্য সনদ নয় — এমন গ্র্যাজুয়েট, যাঁকে জাপানি নিয়োগকর্তা আগামী বছরও নিয়োগ দেবেন।",
+    },
+    partners: {
+      h3: "পার্টনার বোর্ড",
+      intro: "KTTI-এর মালিকানায় ব্যবসা, আইন, এভিয়েশন ও ফিন্যান্সের বৈচিত্র্যময় পার্টনার আছেন।",
+      members: [
+        { name: "Md. Dulu Mia", title: "পার্টনার", bio: "প্রতিষ্ঠাতা পার্টনার। বাণিজ্যিক বিচার ও দীর্ঘমেয়াদি তত্ত্বাবধানে পার্টনারশিপ বোর্ড ও প্রাতিষ্ঠানিক বৃদ্ধিতে অবদান রাখেন।", slug: "dulu-mia", image: "/leaders/dulu-mia.webp" },
+        { name: "Mahdir Alam Biswas", title: "পার্টনার", bio: "বৈচিত্র্যময় মালিকানা বোর্ডের অংশ হিসেবে KTTI-এর শাসন ও কৌশলগত অগ্রাধিকারে সহায়তা করেন।", slug: "mahdir-alam", image: "/leaders/mahdir-alam.webp" },
+        { name: "Yaser Mohammed Habib", title: "পার্টনার", bio: "আন্তর্জাতিক ব্যবসার দৃষ্টি নিয়ে পার্টনারশিপ বোর্ডে আসেন। KTTI-এর আন্তঃসীমান্ত ক্যারিয়ার মিশনকে শক্ত করেন।", slug: "yaser-habib", image: "/leaders/yaser.webp" },
+        { name: "Md Rashidur Rahim Kallol", title: "পার্টনার", bio: "প্রাতিষ্ঠানিক তদারকি ও অংশীদারিত্বের সিদ্ধান্তে অংশ নেন, যাতে KTTI শিক্ষার্থী ও নিয়োগকর্তা উভয়ের কাছে দায়বদ্ধ থাকে।", slug: "kallol", image: "/leaders/kollol.webp" },
+        { name: "Foujul Azim Siddiquee", title: "পার্টনার", bio: "জাপান ক্যারিয়ার পাথওয়ে ইনস্টিটিউট হিসেবে KTTI-এর অপারেশনাল সততা ও দীর্ঘমেয়াদি উন্নয়নে সহায়তা করেন।", slug: "foujul-siddiquee", image: "/leaders/opu.webp" },
+        { name: "Fouzia Haque Nasreen", title: "পার্টনার", bio: "ভাষা ও স্কিল প্রশিক্ষণের দায়িত্বে বোর্ড পর্যায়ের দিকনির্দেশনা ও প্রাতিষ্ঠানিক জবাবদিহিতে অবদান রাখেন।", slug: "fouzia-nasreen", image: "/leaders/fouzia.webp" },
+        { name: "Mohammed Rezaul Karim", title: "পার্টনার", bio: "টেকসই প্রাতিষ্ঠানিক বৃদ্ধি ও অংশীজনের বিশ্বাসের ওপর জোর দিয়ে পার্টনারশিপ শাসনে সহায়তা করেন।", slug: "rezaul-karim" },
+      ],
+    },
     index: {
       ...aboutPageEn.leadership.index,
       metaTitle: "নেতৃত্ব ও ব্যবস্থাপনা | KTTI",
@@ -890,6 +925,16 @@ export const aboutPageBn = {
     ...aboutPageEn.campus,
     h2: "আমাদের ক্যাম্পাস",
     h2Question: "KTTI কোথায় অবস্থিত?",
+    training: {
+      ...aboutPageEn.campus.training,
+      name: "ট্রেনিং সেন্টার (আফতাবনগর)",
+      desc: "আবাসিক ক্লাসরুম, হোস্টেল ও খাবার — ভাষাচর্চা ও স্কিল প্রশিক্ষণের দৈনন্দিন ঠিকানা।",
+    },
+    headOffice: {
+      ...aboutPageEn.campus.headOffice,
+      name: "প্রধান কার্যালয় (গুলশান)",
+      desc: "প্রশাসন ও কর্পোরেট যোগাযোগ — ভর্তি, অংশীদারিত্ব ও গ্রুপ সমন্বয় এখান থেকে চলে।",
+    },
   },
   careers: {
     ...aboutPageEn.careers,
@@ -911,7 +956,11 @@ export const aboutPageBn = {
     },
     event: {
       ...aboutPageEn.careers.event,
+      interviewerLabel: "ইন্টারভিউয়ার",
+      dateLabel: "তারিখ",
+      placeLabel: "স্থান",
       title: "রিয়েল সিমুলেটেড ইন্টারভিউ",
+      subtitle: "পেশাদার · ব্যবহারিক · জাপানের জন্য প্রস্তুত",
       freeBadge: "১০০% ফ্রি",
       highlights: [
         "জাপানি নিয়োগকর্তার মানদণ্ডে সরাসরি ইন্টারভিউ অভিজ্ঞতা",
@@ -923,6 +972,13 @@ export const aboutPageBn = {
     categoriesHeading: "রিক্রুটমেন্ট ক্যাটাগরি",
     categoriesIntro:
       "আপনার লক্ষ্যের সাথে মিলিয়ে SSW পাথওয়ে বেছে নিন। চাহিদা অনুযায়ী আরও ক্যাটাগরি খোলে।",
+    categories: [
+      { id: "building-cleaning", title: "বিল্ডিং ক্লিনিং", desc: "জাপানের ফ্যাসিলিটি ও বিল্ডিং পরিষ্কারের স্কিল পথ।" },
+      { id: "construction", title: "নির্মাণ", desc: "নির্মাণ ও সিভিল স্কিল অ্যাসেসমেন্ট ট্র্যাক।" },
+      { id: "nursing-care", title: "নার্সিং কেয়ার", desc: "কেয়ারগিভার / নার্সিং কেয়ার SSW প্রস্তুতি।" },
+      { id: "aviation", title: "এভিয়েশন", desc: "কাওয়াই গ্রুপ নেটওয়ার্কে এভিয়েশন-সম্পর্কিত সুযোগ।" },
+      { id: "others", title: "অন্যান্য ক্যাটাগরি", desc: "হোটেল, আইটি, ফুড প্রসেসিং ও চাহিদাভিত্তিক পদ।" },
+    ],
     form: {
       ...aboutPageEn.careers.form,
       eyebrow: "নিবন্ধন · Registration",
@@ -933,5 +989,27 @@ export const aboutPageBn = {
     ...aboutPageEn.faq,
     eyebrow: "KTTI সম্পর্কে · FAQ",
     h2: "মানুষ যা জানতে চায়",
+    items: [
+      {
+        question: "কাওয়াই ট্রেডমিগ ট্রেনিং ইনস্টিটিউটের মালিক কে?",
+        answer:
+          "KTTI নিবন্ধিত পার্টনারশিপ ডিডের অধীনে চলে। চেয়ারম্যান বিশ্বাস জাহাঙ্গীর আলমের নেতৃত্বে বোর্ডে ভাইস চেয়ারম্যান, ম্যানেজিং ডিরেক্টর, সিইও, ওভারসিজ ডিরেক্টর ও আরও পার্টনার আছেন — বাংলাদেশের পার্টনারশিপ আইনের অধীনে।",
+      },
+      {
+        question: "KTTI কি কোনো বড় গ্রুপের অংশ?",
+        answer:
+          "হ্যাঁ। KTTI কাওয়াই গ্রুপের অংশ। গ্রুপে বিমান হলিডেজ ও TREDMIG Co. Ltd.ও আছে। গ্রুপ COO এস. এম. মুখতাদির অপারেশন দেখেন।",
+      },
+      {
+        question: "KTTI কোথায়?",
+        answer:
+          "আবাসিক ট্রেনিং ক্যাম্পাস আফতাবনগর, ঢাকায়। প্রধান কার্যালয় গুলশান অ্যাভিনিউ, ঢাকায়।",
+      },
+      {
+        question: "KTTI আসলে কী শেখায়?",
+        answer:
+          "জাপানি ভাষা (JLPT N5–N3, JFT-Basic), কেয়ারগিভিং, ফুড সার্ভিস, নির্মাণসহ SSW স্কিল-টেস্ট প্রস্তুতি, কর্মক্ষেত্রের প্রশিক্ষণ, এবং SSW ভিসা প্রার্থীদের ইন্টারভিউ প্রস্তুতি।",
+      },
+    ],
   },
 } as unknown as typeof aboutPageEn;

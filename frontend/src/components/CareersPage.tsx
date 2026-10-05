@@ -181,7 +181,7 @@ export default function CareersPage() {
           <div className="border border-neutral-200 bg-[#F8F9FA] p-4 sm:p-6 lg:p-8 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <div>
               <p className="text-neutral-400 text-[10px] sm:text-xs uppercase tracking-wider font-mono mb-1">
-                Interviewer
+                {C.event.interviewerLabel}
               </p>
               <p className="font-bold text-neutral-950 text-sm sm:text-base">
                 {C.event.interviewer}
@@ -192,7 +192,7 @@ export default function CareersPage() {
             </div>
             <div>
               <p className="text-neutral-400 text-[10px] sm:text-xs uppercase tracking-wider font-mono mb-1">
-                Date
+                {C.event.dateLabel}
               </p>
               <p className="font-bold text-neutral-950 text-sm sm:text-base">
                 {C.event.date}
@@ -200,7 +200,7 @@ export default function CareersPage() {
             </div>
             <div>
               <p className="text-neutral-400 text-[10px] sm:text-xs uppercase tracking-wider font-mono mb-1">
-                Place
+                {C.event.placeLabel}
               </p>
               <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
                 {C.event.place}

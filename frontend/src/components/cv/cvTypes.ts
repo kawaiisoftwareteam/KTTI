@@ -48,7 +48,7 @@ export type CvData = {
   specialties: string;
 };
 
-export type CvLangPref = "en" | "jp";
+export type CvLangPref = "en" | "bn" | "jp";
 
 export const CV_STORAGE_KEY = "ktti-cv-draft-v3";
 export const CV_LANG_KEY = "ktti-cv-lang-pref";

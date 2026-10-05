@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import CvPreview from "./cv/CvPreview";
 import {
-  CV_LANG_KEY,
   CV_STORAGE_KEY,
   calcAgeFromBirthday,
   emptyCvData,
@@ -28,6 +27,7 @@ import {
   type CvWorkRow,
 } from "./cv/cvTypes";
 import { getFormCopy } from "@/i18n/cvPage";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { downloadCvPdf, waitForPreviewPaint } from "./cv/downloadCvPdf";
 
 type Toast = { type: "ok" | "err"; message: string } | null;
@@ -74,8 +74,8 @@ const inputClass =
 const JLPT = ["", "N1", "N2", "N3", "N4", "N5", "他"];
 
 export default function CvGeneratePage() {
-  const [langPref, setLangPref] = useState<CvLangPref>("en");
-  const c = getFormCopy(langPref);
+  const { lang, setLang } = useLanguage();
+  const c = getFormCopy(lang);
   const [data, setData] = useState<CvData>(() => emptyCvData());
   const [hydrated, setHydrated] = useState(false);
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
@@ -86,8 +86,6 @@ export default function CvGeneratePage() {
 
   useEffect(() => {
     try {
-      const savedLang = window.localStorage.getItem(CV_LANG_KEY);
-      if (savedLang === "en" || savedLang === "jp") setLangPref(savedLang);
       const raw = window.localStorage.getItem(CV_STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<CvData>;
@@ -108,11 +106,6 @@ export default function CvGeneratePage() {
       /* ignore */
     }
     setHydrated(true);
-  }, []);
-
-  const changeLang = useCallback((next: CvLangPref) => {
-    setLangPref(next);
-    window.localStorage.setItem(CV_LANG_KEY, next);
   }, []);
 
   const showToast = useCallback((message: string, type: "ok" | "err" = "ok") => {
@@ -231,18 +224,18 @@ export default function CvGeneratePage() {
               <span className="whitespace-nowrap">{c.langPrefLabel}</span>
             </div>
             <div className="flex rounded-none border border-neutral-200 overflow-hidden shrink-0">
-              {(["en", "jp"] as CvLangPref[]).map((code) => (
+              {(["en", "bn", "jp"] as CvLangPref[]).map((code) => (
                 <button
                   key={code}
                   type="button"
-                  onClick={() => changeLang(code)}
+                  onClick={() => setLang(code)}
                   className={`px-3 py-2 text-xs font-bold ${
-                    langPref === code
+                    lang === code
                       ? "bg-[#A71728] text-white"
                       : "bg-white text-neutral-700 hover:bg-neutral-50"
                   }`}
                 >
-                  {code === "en" ? c.langEn : c.langJp}
+                  {code === "en" ? c.langEn : code === "bn" ? c.langBn : c.langJp}
                 </button>
               ))}
             </div>

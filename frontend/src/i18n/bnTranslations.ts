@@ -1,4 +1,5 @@
 import { aboutPageBn } from "./aboutPage";
+import { cvPageBn } from "./cvPage";
 import { translations } from "./translations";
 
 export type EnTranslations = (typeof translations)["en"];
@@ -7,6 +8,7 @@ export type EnTranslations = (typeof translations)["en"];
 export const bnTranslations = {
   ...translations.en,
   aboutPage: aboutPageBn as EnTranslations["aboutPage"],
+  cvPage: cvPageBn as EnTranslations["cvPage"],
   nav: {
     ...translations.en.nav,
     home: "হোম",
@@ -24,6 +26,24 @@ export const bnTranslations = {
     hotline: "হটলাইন",
     applyNow: "আবেদন করুন",
     apply: "আবেদন",
+    aboutInstitute: "ইনস্টিটিউট সম্পর্কে",
+    leadership: "নেতৃত্ব",
+    coursesMenu: "কোর্স",
+    coursesHub: "কোর্স হাব",
+    japaneseCourse: "জাপানি ভাষা কোর্স",
+    sswCourse: "SSW প্রস্তুতি কোর্স",
+    interviewCourse: "ইন্টারভিউ প্রস্তুতি",
+    studentVisaCourse: "স্টুডেন্ট ভিসা প্রস্তুতি",
+    weeklyMock: "সাপ্তাহিক মক টেস্ট",
+    onlineMock: "অনলাইন মক ইন্টারভিউ",
+    facilities: "সুবিধা",
+    residential: "আবাসিক সুবিধা",
+    nonResidential: "নন-রেসিডেন্সিয়াল কোর্স",
+    teachers: "আমাদের শিক্ষক",
+    jobPlacement: "জাপান জব প্লেসমেন্ট",
+    generateCv: "CV তৈরি",
+    admission: "ভর্তি",
+    dhakaTokyo: "ঢাকা · টোকিও",
   },
   hero: {
     ...translations.en.hero,
@@ -489,6 +509,17 @@ export const bnTranslations = {
     contactHeading: "যোগাযোগ",
     locationsHeading: "আমাদের অবস্থান",
     scrollTopAria: "উপরে যান",
+    locations: [
+      {
+        name: "ট্রেনিং সেন্টার (আফতাবনগর)",
+        address:
+          "House 26/10, Level 8 & 9, Plot 13 & 15, Block-B, Zahurul Islam City Gate, Main Road, Aftabnagar, Dhaka-1212",
+      },
+      {
+        name: "প্রধান কার্যালয়",
+        address: "Taj Caslina, L-2, 25 Gulshan Avenue, Gulshan-1, Dhaka 1212",
+      },
+    ],
     navLinks: [
       { label: "হোম", href: "/" },
       { label: "আমাদের সম্পর্কে", href: "/about/" },
@@ -514,17 +545,39 @@ export const bnTranslations = {
     connectWhatsApp: "এখনই WhatsApp-এ যোগাযোগ",
     closeWindow: "বন্ধ করুন",
     fullName: "পুরো নাম *",
+    fullNamePlaceholder: "যেমন: তানভির আহমেদ",
     phone: "ফোন / WhatsApp *",
+    phonePlaceholder: "যেমন: +880 1712 345678",
     email: "ইমেইল",
+    emailPlaceholder: "যেমন: tanvir@example.com",
     targetProgram: "টার্গেট প্রোগ্রাম *",
     preferredIndustry: "পছন্দের খাত *",
     japaneseLevel: "বর্তমান জাপানি লেভেল",
     messageLabel: "অতিরিক্ত প্রশ্ন বা পটভূমি",
+    messagePlaceholder: "যোগ্যতা, ডিপ্লোমা বা প্রশ্ন লিখুন...",
     submitting: "আবেদন জমা হচ্ছে...",
     submit: "আবেদন জমা দিন",
     whatsappInstant: "WhatsApp ইনস্ট্যান্ট",
     privacy:
       "🔒 আপনার তথ্য গোপন রাখা হয় এবং শুধুমাত্র ভর্তি কাউন্সেলিংয়ের জন্য ব্যবহৃত হয়।",
+    whatsappTemplate:
+      "হ্যালো কাওয়াই ট্রেডমিগ ট্রেনিং ইনস্টিটিউট, আমি {program} সম্পর্কে জানতে চাই। আমার নাম {name}।",
+    interestedCandidate: "আগ্রহী প্রার্থী",
+    programs: [
+      { value: "SSW Specialized Skill Training", label: "SSW স্কিল ট্রেনিং" },
+      { value: "Japanese Language Academy", label: "জাপানি ভাষা একাডেমি" },
+      { value: "Corporate Interview & Workplace Readiness", label: "চাকরি ও ইন্টারভিউ প্রস্তুতি" },
+      { value: "Japan Career & Settlement Pathway", label: "সম্পূর্ণ জাপান ক্যারিয়ার প্যাকেজ" },
+    ],
+    industries: [
+      "কেয়ারগিভার / নার্সিং কেয়ার",
+      "ফুড সার্ভিস ও রেস্তোরাঁ",
+      "হোটেল ও হসপিটালিটি",
+      "নির্মাণ ও সিভিল কাজ",
+      "কৃষি",
+      "আইটি ও ইঞ্জিনিয়ারিং",
+    ],
+    levels: ["শূন্য / একদম নতুন", "N5 শিখছি", "N5 পাস", "N4 বা তার ওপরে পাস"],
   },
   common: {
     applyNow: "এখনই আবেদন করুন",
