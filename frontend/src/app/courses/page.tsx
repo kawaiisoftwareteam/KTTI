@@ -4,12 +4,13 @@ import CoursesHub from "@/components/CoursesHub";
 const SITE_URL = "https://sswv.org";
 
 export const metadata: Metadata = {
-  title: "Japanese Language Learning | Kawaii Training Institute",
-  description: "Explore KTTI courses: Japanese language, SSW preparation, student visa preparation, mock tests, and interview prep in Dhaka, Bangladesh.",
+  title: "Japanese Language & Visa Courses in Bangladesh | KTTI",
+  description: "Explore KTTI courses in Dhaka: Japanese language, JLPT N5 and N4, SSW and student visa preparation, interview prep, mock tests and online mock interviews.",
+  keywords: "japanese language course in bangladesh, japanese language courses dhaka, japan student visa from bangladesh, japan ssw visa bangladesh, how to go to japan from bangladesh",
   alternates: { canonical: `${SITE_URL}/courses` },
   openGraph: {
-    title: "Courses | KTTI",
-    description: "Explore KTTI courses: Japanese language, SSW preparation, student visa preparation, mock tests, and interview prep.",
+    title: "Japanese Language & Visa Courses in Bangladesh | KTTI",
+    description: "Explore KTTI courses in Dhaka: Japanese language, JLPT N5 and N4, SSW and student visa preparation, interview prep, mock tests and online mock interviews.",
     url: `${SITE_URL}/courses`,
     type: "website",
     siteName: "Kawaii Training Institute",
