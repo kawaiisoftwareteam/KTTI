@@ -8,6 +8,7 @@ import StatsSection from "@/components/StatsSection";
 import Testimonials from "@/components/Testimonials";
 import FaqSection from "@/components/FaqSection";
 import FinalCta from "@/components/FinalCta";
+import HomeSeoContent from "@/components/HomeSeoContent";
 import { useApplyModal } from "@/contexts/ApplyModalContext";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <StatsSection />
       <Testimonials />
       <FaqSection />
+      <HomeSeoContent onOpenApply={() => openApply()} />
       <FinalCta onOpenApply={() => openApply()} />
     </>
   );

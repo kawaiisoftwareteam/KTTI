@@ -33,7 +33,7 @@ export default function FinalCta({ onOpenApply }: FinalCtaProps) {
         </div>
 
         {/* Headline */}
-        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase leading-[0.95] text-neutral-950">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[5rem] font-black tracking-tight uppercase leading-[1.05] text-neutral-950">
           {t.finalCta.title} <br />
           <span className="text-[#A71728]">{t.finalCta.titleAccent}</span>
         </h2>

@@ -23,6 +23,45 @@ type NavLink = {
   children?: NavChild[];
 };
 
+const LangToggle = ({ variant }: { variant: "dark" | "light" }) => {
+  const { lang, setLang } = useLanguage();
+  const codes: Lang[] = ["en", "bn", "jp"];
+  const isDark = variant === "dark";
+
+  return (
+    <div
+      className={`flex items-center p-0.5 rounded-full border transition-colors ${
+        isDark ? "bg-white/5 border-white/10" : "bg-neutral-100 border-neutral-200"
+      }`}
+      role="group"
+      aria-label="Language"
+    >
+      {codes.map((code) => {
+        const isActive = lang === code;
+        return (
+          <button
+            key={code}
+            type="button"
+            onClick={() => setLang(code)}
+            className={`relative px-3.5 py-1.5 text-[11px] font-bold tracking-widest uppercase !rounded-full transition-all duration-300 ${
+              isActive
+                ? isDark
+                  ? "text-neutral-900 bg-white shadow-sm"
+                  : "text-white bg-[#A71728] shadow-sm"
+                : isDark
+                  ? "text-white/60 hover:text-white hover:bg-white/10"
+                  : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200/50"
+            }`}
+            aria-pressed={isActive}
+          >
+            {code}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
 export default function Navbar({ onOpenApply }: NavbarProps) {
   const { lang, setLang, t } = useLanguage();
   const pathname = usePathname();
@@ -145,39 +184,6 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
     { label: t.nav.contact || "Contact", href: "/contact/", id: "contact" },
   ];
 
-  const LangToggle = ({ variant }: { variant: "dark" | "light" }) => (
-    <div className="flex items-center" role="group" aria-label="Language">
-      {(["en", "bn", "jp"] as Lang[]).map((code, i) => (
-        <React.Fragment key={code}>
-          {i > 0 && (
-            <span
-              className={
-                variant === "dark" ? "text-white/20 px-0.5" : "text-neutral-300 px-0.5"
-              }
-            >
-              /
-            </span>
-          )}
-          <button
-            type="button"
-            onClick={() => setLang(code)}
-            className={`px-1.5 py-0.5 text-xs font-semibold tracking-wider uppercase ${
-              lang === code
-                ? variant === "dark"
-                  ? "text-white"
-                  : "text-[#A71728]"
-                : variant === "dark"
-                  ? "text-white/45 hover:text-white"
-                  : "text-neutral-500 hover:text-neutral-900"
-            }`}
-            aria-pressed={lang === code}
-          >
-            {code === "en" ? "EN" : code === "bn" ? "BN" : "JP"}
-          </button>
-        </React.Fragment>
-      ))}
-    </div>
-  );
 
   const renderLinks = (onNavigate?: () => void) =>
     navLinks.map((link) => {

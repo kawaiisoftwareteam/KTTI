@@ -12,7 +12,7 @@ interface JapanBannerProps {
 export default function JapanBanner({ onOpenApply }: JapanBannerProps) {
   const { t } = useLanguage();
   return (
-    <section className="relative w-full py-24 lg:py-36 bg-neutral-100 text-neutral-900 overflow-hidden flex items-center justify-center border-y border-neutral-200">
+    <section className="relative w-full py-16 lg:py-20 bg-neutral-100 text-neutral-900 overflow-hidden flex items-center justify-center border-y border-neutral-200">
       {/* Background Image with Light Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center scale-105 opacity-15"
@@ -32,9 +32,8 @@ export default function JapanBanner({ onOpenApply }: JapanBannerProps) {
           <span>{t.japanBanner.eyebrow}</span>
         </div>
 
-        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase leading-[0.95] text-neutral-950">
-          {t.japanBanner.titleLine1} <br />
-          <span className="text-[#A71728]">{t.japanBanner.titleAccent}</span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight uppercase leading-[1.1] text-neutral-950">
+          {t.japanBanner.titleLine1} <span className="text-[#A71728]">{t.japanBanner.titleAccent}</span>
         </h2>
 
         <p className="max-w-2xl mx-auto text-base sm:text-xl text-neutral-600 font-normal leading-relaxed">
