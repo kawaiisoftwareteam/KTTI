@@ -34,7 +34,7 @@ export default function CoursesPage() {
 
   return (
     <div
-      className="pt-28"
+      className="pt-0"
       style={{ fontFamily: "var(--font-bengali), sans-serif" }}
     >
       <div className="bg-white overflow-hidden">

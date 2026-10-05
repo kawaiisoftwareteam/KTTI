@@ -106,24 +106,43 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navLinks: NavLink[] = [
-    { label: t.nav.home, href: "/", id: "home" },
+    { label: t.nav.home || "Home", href: "/", id: "home" },
     {
-      label: t.nav.about,
+      label: t.nav.about || "About Institute",
       href: "/about/",
       id: "about",
       children: [
-        { label: t.nav.aboutStory, href: "/about/" },
-        { label: t.nav.aboutLeadership, href: "/leadership/" },
-        { label: t.nav.aboutAccreditation, href: "/about/accreditation/" },
+        { label: "About Institute", href: "/about/" },
+        { label: "Leadership", href: "/leadership/" },
       ],
     },
-    { label: t.nav.careers, href: "/careers/", id: "careers" },
-    { label: t.nav.courses, href: "/courses/", id: "programs" },
-    { label: t.nav.sswPrograms, href: "/ssw/", id: "ssw" },
-    { label: t.nav.japaneseHub, href: "/japanese/", id: "japanese" },
-    { label: t.nav.whyUs, href: "/why-us/", id: "why-us" },
-    { label: t.nav.cv, href: "/cv/", id: "cv" },
-    { label: t.nav.contact, href: "/contact/", id: "contact" },
+    {
+      label: "Courses",
+      href: "/courses/",
+      id: "programs",
+      children: [
+        { label: "Courses Hub", href: "/courses/" },
+        { label: "Japanese Language Course", href: "/courses/japanese-language-course/" },
+        { label: "SSW Preparation Course", href: "/courses/ssw-preparation-course/" },
+        { label: "Interview Preparation", href: "/courses/interview-preparation/" },
+        { label: "Student Visa Preparation", href: "/courses/student-visa-preparation/" },
+        { label: "Weekly Mock Test", href: "/courses/weekly-mock-test/" },
+        { label: "Online Mock Interview", href: "/courses/online-mock-interview/" },
+      ],
+    },
+    {
+      label: "Facilities",
+      href: "/residential-facility/",
+      id: "facilities",
+      children: [
+        { label: "Residential Facility", href: "/residential-facility/" },
+        { label: "Non-Residential Course", href: "/non-residential-course/" },
+      ],
+    },
+    { label: "Our Teachers", href: "/our-teachers/", id: "teachers" },
+    { label: "Japan Job Placement", href: "/japan-job-placement/", id: "jobs" },
+    { label: "Success Stories", href: "/success-stories/", id: "success" },
+    { label: t.nav.contact || "Contact", href: "/contact/", id: "contact" },
   ];
 
   const LangToggle = ({ variant }: { variant: "dark" | "light" }) => (
@@ -201,20 +220,27 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
                     role="menu"
                     className="bg-white border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] py-1.5"
                   >
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        role="menuitem"
-                        className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-[#A71728]"
-                        onClick={() => {
-                          setOpenMenu(null);
-                          onNavigate?.();
-                        }}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                    {link.children.map((child) => {
+                      const isChildActive = pathname === child.href || pathname === child.href.replace(/\/$/, "");
+                      return (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          role="menuitem"
+                          className={`block px-4 py-2.5 text-sm ${
+                            isChildActive
+                              ? "text-[#A71728] font-bold bg-neutral-50"
+                              : "text-neutral-700 hover:bg-neutral-50 hover:text-[#A71728]"
+                          }`}
+                          onClick={() => {
+                            setOpenMenu(null);
+                            onNavigate?.();
+                          }}
+                        >
+                          {child.label}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </>
@@ -260,13 +286,12 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           <div className="flex items-center px-4">
             <LangToggle variant="dark" />
           </div>
-          <button
-            type="button"
-            onClick={onOpenApply}
-            className="px-6 bg-[#A71728]/90 backdrop-blur-sm text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#A71728]"
+          <Link
+            href="/admission"
+            className="px-6 py-2.5 flex items-center justify-center bg-[#A71728]/90 backdrop-blur-sm text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#A71728]"
           >
-            {t.nav.applyNow}
-          </button>
+            Admission
+          </Link>
         </div>
       </div>
 
@@ -294,12 +319,12 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
 
         <div className="flex lg:hidden items-center gap-2 shrink-0">
           <LangToggle variant="light" />
-          <DoorButton
-            onClick={onOpenApply}
-            className="hidden min-[400px]:inline-flex px-3 py-2 text-xs font-bold uppercase tracking-wider"
+          <Link
+            href="/admission"
+            className="hidden min-[400px]:inline-flex px-3 py-2 text-xs font-bold uppercase tracking-wider bg-[#A71728] text-white"
           >
-            {t.nav.apply}
-          </DoorButton>
+            Admission
+          </Link>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((o) => !o)}
@@ -331,16 +356,23 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
                   </Link>
                   {link.children && (
                     <div className="ml-3 mb-2 border-l border-neutral-200 pl-3">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block py-2 text-sm text-neutral-600"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                      {link.children.map((child) => {
+                        const isChildActive = pathname === child.href || pathname === child.href.replace(/\/$/, "");
+                        return (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`block py-2 text-sm ${
+                              isChildActive
+                                ? "text-[#A71728] font-bold"
+                                : "text-neutral-600"
+                            }`}
+                          >
+                            {child.label}
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
