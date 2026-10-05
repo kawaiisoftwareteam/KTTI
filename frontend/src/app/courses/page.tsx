@@ -6,12 +6,12 @@ const SITE_URL = "https://sswv.org";
 export const metadata: Metadata = {
   title: "15 Day Basic Japanese | Kawaii Tredmig Training Institute (KTTI)",
   description:
-    "KTTI-এর ১৫ দিনের বেসিক জাপানি কোর্স। আবাসিক ৭,৫০০ টাকা — থাকা, খাওয়া ও শেখা। অনাবাসিক ২,৫০০ টাকা — শুধু কোর্স।",
+    "আগে নিজেকে যাচাই করুন, তারপর Japanese Language শেখা শুরু করুন। KTTI-এর ১৫ দিনের Basic Japanese — নির্বাচিত কোর্স ফিতে ৫০% ছাড়।",
   alternates: { canonical: `${SITE_URL}/courses` },
   openGraph: {
     title: "15 Day Basic Japanese | KTTI",
     description:
-      "মাত্র ১৫ দিনে জাপানি ভাষার বেসিক। আবাসিক ৭,৫০০ অথবা অনাবাসিক ২,৫০০।",
+      "কোর্সে ভর্তির আগে Basic Japanese-এর সঙ্গে নিজেকে পরিচিত করুন। নির্বাচিত কোর্স ফিতে ৫০% ছাড়।",
     url: `${SITE_URL}/courses`,
     type: "website",
     siteName: "Kawaii Tredmig Training Institute",

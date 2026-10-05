@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { BookOpen, CheckCircle, Clock, Phone, Send, Shield } from "lucide-react";
+import { CheckCircle, Send } from "lucide-react";
 import DoorButton from "@/components/DoorButton";
 import {
   BASIC_JP_COURSES,
-  BASIC_JP_PHONES,
   submitBasicJapaneseCourse,
 } from "@/data/basicJapaneseCourse";
 
@@ -13,13 +12,6 @@ const fieldClass =
   "w-full min-h-12 border border-[#E8D5D5] bg-white px-3.5 sm:px-4 py-3 text-base sm:text-sm text-[#1a1a1a] placeholder:text-neutral-400 outline-none focus:border-[#A71728] transition-colors";
 const labelClass =
   "block text-sm font-semibold text-[#2a2a2a] mb-2 leading-snug";
-
-const FEATURES = [
-  { icon: Shield, label: "নিরাপদ আবাসন" },
-  { icon: BookOpen, label: "নিবিড় ও একাগ্র শিক্ষা" },
-  { icon: CheckCircle, label: "নিয়মিত চর্চা সহায়ক পরিবেশ" },
-  { icon: Clock, label: "শৃঙ্খলাবদ্ধ সময় ব্যবস্থাপনা" },
-] as const;
 
 export default function CoursesPage() {
   const [name, setName] = useState("");
@@ -49,7 +41,7 @@ export default function CoursesPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/courses/basic-japanese.webp"
-          alt="মাত্র ১৫ দিনে জাপানি ভাষার বেসিক শিখুন — KTTI"
+          alt="আগে নিজেকে যাচাই করুন, তারপর Japanese Language শেখা শুরু করুন — KTTI"
           width={1600}
           height={640}
           fetchPriority="high"
@@ -60,53 +52,57 @@ export default function CoursesPage() {
 
       <section className="bg-[#FAF7F5] border-t border-[#E8D5D5]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
-          <div className="space-y-5 sm:space-y-6 min-w-0">
-            <p className="text-xs font-bold tracking-[0.18em] sm:tracking-[0.2em] text-[#A71728] uppercase">
-              15 Day Basic Japanese
-            </p>
-            <h1 className="text-[1.65rem] min-[400px]:text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-950 leading-[1.2]">
-              মাত্র ১৫ দিনে জাপানি ভাষার বেসিক শিখুন
+          <div className="relative space-y-4 sm:space-y-5 min-w-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/courses/50-off.png"
+              alt="৫০% ডিসকাউন্ট — স্পেশাল অফার"
+              width={420}
+              height={320}
+              decoding="async"
+              className="discount-badge pointer-events-none absolute right-0 -top-3 z-10 w-28 min-[400px]:w-32 sm:w-40 lg:w-44 h-auto"
+            />
+            <h1 className="text-[1.45rem] min-[400px]:text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-neutral-950 leading-[1.25] pr-28 min-[400px]:pr-36 sm:pr-44">
+              আগে নিজেকে যাচাই করুন, তারপর Japanese Language শেখা শুরু করুন
             </h1>
-            <p className="text-base sm:text-lg text-neutral-800 font-semibold leading-snug">
-              জাপান আর স্বপ্ন নয়, এবার হবে বাস্তব!
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
+              বাংলাদেশে Japanese Language শেখার ক্ষেত্রে অনেকেই আগে টাকা খরচ করে
+              Course শুরু করেন—কিন্তু পরে বুঝতে পারেন, Japanese Language শেখা তাদের
+              জন্য কতটা suitable বা challenging।
             </p>
             <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
-              Japan যাওয়ার প্রস্তুতি শুরু করতে চান? KTTI-এর 15 Days Basic Japanese
-              Language Course-এ ভর্তির আগ্রহ জানান। কোর্স শেষে নিজের শেখার দক্ষতা
-              যাচাই করতে পারবেন।
+              Kawaii Tredmig Training Institute (KTTI) এই জায়গায় নিয়ে এসেছে একটি
+              নতুন ধরনের practical learning opportunity।
             </p>
-            <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-              JLPT · JFT-Basic · SSW · Student Visa — প্রস্তুতির শক্ত ভিত্তি
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
+              কোর্সে ভর্তি হওয়ার আগে Basic Japanese Language-এর সঙ্গে নিজেকে
+              পরিচিত করুন এবং বুঝে নিন—আপনি সত্যিই Japanese Language শেখার জন্য
+              প্রস্তুত কি না।
             </p>
-
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {FEATURES.map(({ icon: Icon, label }) => (
-                <li
-                  key={label}
-                  className="flex items-start gap-3 border border-[#E8D5D5] bg-white px-3.5 py-3.5 text-sm sm:text-[15px] font-semibold text-neutral-800 leading-snug"
-                >
-                  <Icon className="w-4 h-4 text-[#A71728] shrink-0 mt-0.5" />
-                  {label}
-                </li>
-              ))}
-            </ul>
-
-            <p className="text-sm text-neutral-600">
-              শিক্ষিত আপনার দায়িত্ব আমাদের · ৩ যুগ+ অভিজ্ঞ ম্যানেজমেন্ট
+            <p className="text-sm sm:text-base font-bold text-neutral-900 leading-snug">
+              মাত্র ১৫ দিনে Basic Japanese Language শেখার সুযোগ।
             </p>
-
-            <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap gap-2 min-[400px]:gap-4">
-              {BASIC_JP_PHONES.map((phone) => (
-                <a
-                  key={phone}
-                  href={`tel:+88${phone}`}
-                  className="inline-flex items-center gap-2 min-h-11 text-base font-bold text-[#A71728]"
-                >
-                  <Phone className="w-4 h-4" />
-                  {phone}
-                </a>
-              ))}
+            <div className="border border-[#E8D5D5] bg-white px-3.5 py-3.5 sm:px-4 sm:py-4">
+              <p className="text-sm sm:text-base font-black text-[#A71728]">
+                বিশেষ 50% Offer
+              </p>
+              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed mt-1.5">
+                প্রথমবার basic Japanese Language শেখার এই opportunity নিতে আগ্রহীদের
+                জন্য নির্বাচিত Course Fee-তে 50% ছাড়ের বিশেষ সুযোগ থাকছে।
+              </p>
             </div>
+            <p className="text-sm sm:text-base font-semibold text-neutral-800 leading-snug">
+              আগে জানুন, আগে শিখুন, তারপর সিদ্ধান্ত নিন।
+            </p>
+            <p className="text-sm sm:text-base text-neutral-700 leading-snug">
+              Start Your Basic Japanese Language Journey with KTTI.
+            </p>
+            <a
+              href="#register"
+              className="inline-flex min-h-11 items-center text-sm sm:text-base font-bold text-[#A71728]"
+            >
+              50% Offer পেতে নিচের Registration Form পূরণ করুন।
+            </a>
           </div>
 
           <div
