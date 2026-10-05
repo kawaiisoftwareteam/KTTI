@@ -43,7 +43,7 @@ export default function CoursesPage() {
   return (
     <div
       className="pt-28"
-      style={{ fontFamily: "var(--font-bengali), var(--font-outfit), sans-serif" }}
+      style={{ fontFamily: "var(--font-bengali), sans-serif" }}
     >
       <div className="bg-white overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}

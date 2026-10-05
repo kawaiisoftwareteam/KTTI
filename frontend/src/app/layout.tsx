@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import SiteShell from "@/components/SiteShell";
 import "./globals.css";
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "900"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sswv.org"),
@@ -48,12 +40,14 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${outfit.className} scroll-smooth antialiased`}
+      className="scroll-smooth antialiased"
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
+          href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@400;500;700&display=swap"
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
         />
       </head>
       <body
