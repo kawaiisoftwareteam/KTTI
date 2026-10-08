@@ -23,24 +23,27 @@ function collectLeaders(
     })
   );
 
-  const coo: LeaderProfile = {
-    slug: page.leadership.coo.slug,
-    name: page.leadership.coo.name,
-    title: page.leadership.coo.title,
-    bio: page.leadership.coo.bio,
-    image: page.leadership.coo.image,
-    pullQuote: page.leadership.coo.pullQuote,
-    role: "coo",
-  };
+  // COO + partners hidden on /leadership/ for now
+  // const coo: LeaderProfile = {
+  //   slug: page.leadership.coo.slug,
+  //   name: page.leadership.coo.name,
+  //   title: page.leadership.coo.title,
+  //   bio: page.leadership.coo.bio,
+  //   image: page.leadership.coo.image,
+  //   pullQuote: page.leadership.coo.pullQuote,
+  //   role: "coo",
+  // };
+  //
+  // const partners: LeaderProfile[] = page.leadership.partners.members.map(
+  //   (member) => ({
+  //     ...member,
+  //     role: "partner" as const,
+  //   })
+  // );
+  //
+  // return [...executives, coo, ...partners];
 
-  const partners: LeaderProfile[] = page.leadership.partners.members.map(
-    (member) => ({
-      ...member,
-      role: "partner" as const,
-    })
-  );
-
-  return [...executives, coo, ...partners];
+  return executives;
 }
 
 function pageForLang(lang: Lang) {

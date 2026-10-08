@@ -3,17 +3,19 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { LeaderCard, PartnerCard } from "@/components/leadership/LeaderCards";
+import { LeaderCard } from "@/components/leadership/LeaderCards";
+// import { PartnerCard } from "@/components/leadership/LeaderCards";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function LeadershipIndexPage() {
   const { t } = useLanguage();
   const page = t.aboutPage;
   const L = page.leadership;
-  const preview = [
-    ...L.executives.slice(0, 3).map((e) => e.image),
-    L.coo.image,
-  ].filter(Boolean) as string[];
+  // Only the five visible executives (COO + partners commented out below)
+  const preview = L.executives
+    .slice(0, 4)
+    .map((e) => e.image)
+    .filter(Boolean) as string[];
 
   return (
     <>
@@ -110,6 +112,7 @@ export default function LeadershipIndexPage() {
                 viewLabel={L.profile.viewProfile}
               />
             ))}
+            {/*
             <LeaderCard
               name={L.coo.name}
               title={L.coo.title}
@@ -118,10 +121,12 @@ export default function LeadershipIndexPage() {
               viewLabel={L.profile.viewProfile}
               featured
             />
+            */}
           </div>
         </div>
       </section>
 
+      {/* Board of Partners — hidden for now
       <section className="py-16 lg:py-24 bg-[#F8F9FA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-bold text-neutral-950 mb-3">
@@ -144,6 +149,7 @@ export default function LeadershipIndexPage() {
           </div>
         </div>
       </section>
+      */}
     </>
   );
 }

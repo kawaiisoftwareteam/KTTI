@@ -14,18 +14,18 @@ export default function AboutPage() {
   const { openApply } = useApplyModal();
   const page = t.aboutPage;
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const leadershipPreview = [
-    ...page.leadership.executives.slice(0, 4).map((e) => ({
-      name: e.name,
-      image: e.image,
-      slug: e.slug,
-    })),
-    {
-      name: page.leadership.coo.name,
-      image: page.leadership.coo.image,
-      slug: page.leadership.coo.slug,
-    },
-  ];
+  // Match /leadership/ — five executives only (COO commented out)
+  const leadershipPreview = page.leadership.executives.slice(0, 5).map((e) => ({
+    name: e.name,
+    image: e.image,
+    slug: e.slug,
+  }));
+  // {
+  //   name: page.leadership.coo.name,
+  //   image: page.leadership.coo.image,
+  //   slug: page.leadership.coo.slug,
+  // },
+
 
   return (
     <>
