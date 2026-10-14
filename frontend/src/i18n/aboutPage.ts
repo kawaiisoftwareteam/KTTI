@@ -97,18 +97,18 @@ export const aboutPageEn = {
         image: "/leaders/captain-joarder.webp",
       },
       {
-        name: "Md. Shafiuddin",
-        title: "Managing Director",
-        bio: "Responsible for the day-to-day management, administration, and operations of KTTI — from admissions and academics to compliance and financial oversight.",
-        slug: "managing-director",
-        image: "/leaders/md-shafiuddin.webp",
-      },
-      {
         name: "Dewan Samir",
         title: "Partner & Chief Executive Officer",
         bio: "Drives KTTI's business development, international relations, and strategic growth — including relationships with Japanese employers, registered support organizations (RSOs), and partner institutions.",
         slug: "ceo",
         image: "/leaders/dewan-samir.webp",
+      },
+      {
+        name: "Md. Shafiuddin",
+        title: "Managing Director",
+        bio: "Responsible for the day-to-day management, administration, and operations of KTTI — from admissions and academics to compliance and financial oversight.",
+        slug: "managing-director",
+        image: "/leaders/md-shafiuddin.webp",
       },
       // {
       //   name: "Tajul Islam",
@@ -495,18 +495,18 @@ export const aboutPageJp = {
         image: "/leaders/captain-joarder.webp",
       },
       {
-        name: "Md. Shafiuddin",
-        title: "マネージング・ディレクター",
-        bio: "入学・学術からコンプライアンス・財務監督まで、KTTIの日常的な管理・運営・オペレーションを担います。",
-        slug: "managing-director",
-        image: "/leaders/md-shafiuddin.webp",
-      },
-      {
         name: "Dewan Samir",
         title: "パートナー兼最高経営責任者（CEO）",
         bio: "日本の雇用主、登録支援機関（RSO）、パートナー機関との関係を含む、事業開発・国際関係・戦略成長を推進します。",
         slug: "ceo",
         image: "/leaders/dewan-samir.webp",
+      },
+      {
+        name: "Md. Shafiuddin",
+        title: "マネージング・ディレクター",
+        bio: "入学・学術からコンプライアンス・財務監督まで、KTTIの日常的な管理・運営・オペレーションを担います。",
+        slug: "managing-director",
+        image: "/leaders/md-shafiuddin.webp",
       },
       // {
       //   name: "Tajul Islam",
@@ -871,8 +871,8 @@ export const aboutPageBn = {
       { name: "Biswas Jahangir Alam", title: "চেয়ারম্যান", bio: "KTTI-এর কৌশলগত দিক ও প্রাতিষ্ঠানিক নেতৃত্ব দেন। সরকার, নিয়ন্ত্রক সংস্থা ও শিল্পের সামনে ইনস্টিটিউটের প্রতিনিধিত্ব করেন এবং কাওয়াই গ্রুপের অংশ হিসেবে দীর্ঘমেয়াদি বৃদ্ধি পরিচালনা করেন।", slug: "chairman", image: "/leaders/biswas-jahangir-alam.webp" },
       { name: "Md Habib Ullah Babul", title: "ভাইস চেয়ারম্যান", bio: "প্রাতিষ্ঠানিক অংশীদারিত্ব ও ব্যবসা উন্নয়নের নেতৃত্ব দেন। KTTI-এর গ্র্যাজুয়েটদের জাপানের নিয়োগকর্তার সাথে যুক্ত করেন।", slug: "vice-chairman", image: "/leaders/habibullah-babul.webp" },
       { name: "Captain Quamrul Hasan Joarder", title: "ভাইস চেয়ারম্যান", bio: "এভিয়েশন ও আন্তর্জাতিক অপারেশনের অভিজ্ঞতা নিয়ে KTTI-এর শাসনে আসেন। বিদেশে প্লেসমেন্ট ও যাতায়াতের পথকে সহায়তা করেন।", slug: "vice-chairman-aviation", image: "/leaders/captain-joarder.webp" },
-      { name: "Md. Shafiuddin", title: "ম্যানেজিং ডিরেক্টর", bio: "KTTI-এর দৈনন্দিন ব্যবস্থাপনা, প্রশাসন ও অপারেশন — ভর্তি, একাডেমিক, কমপ্লায়েন্স ও আর্থিক তদারকি।", slug: "managing-director", image: "/leaders/md-shafiuddin.webp" },
       { name: "Dewan Samir", title: "পার্টনার ও প্রধান নির্বাহী", bio: "ব্যবসা উন্নয়ন, আন্তর্জাতিক সম্পর্ক ও কৌশলগত বৃদ্ধি চালান — জাপানি নিয়োগকর্তা, রেজিস্টার্ড সাপোর্ট অর্গানাইজেশন (RSO) ও সহযোগী প্রতিষ্ঠানের সাথে।", slug: "ceo", image: "/leaders/dewan-samir.webp" },
+      { name: "Md. Shafiuddin", title: "ম্যানেজিং ডিরেক্টর", bio: "KTTI-এর দৈনন্দিন ব্যবস্থাপনা, প্রশাসন ও অপারেশন — ভর্তি, একাডেমিক, কমপ্লায়েন্স ও আর্থিক তদারকি।", slug: "managing-director", image: "/leaders/md-shafiuddin.webp" },
       // { name: "Tajul Islam", title: "ওভারসিজ ডিরেক্টর", bio: "গ্র্যাজুয়েট জাপানে যাওয়ার পর আন্তর্জাতিক সম্পর্ক ও প্রার্থীর পথ দেখেন। বিদেশি পার্টনার ও সাপোর্ট নেটওয়ার্কের সাথে সমন্বয় করেন।", slug: "overseas-director", image: "/leaders/tajul-islam.webp" },
     ],
     // Hidden on /leadership/ for now

@@ -1,4 +1,4 @@
-export const CONTACT_EMAIL = "info@sswv.com";
+export const CONTACT_EMAIL = "info@kttibd.com";
 
 export const CONTACT_PHONES = [
   "+8801817047247",
