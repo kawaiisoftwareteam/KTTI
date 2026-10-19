@@ -256,9 +256,9 @@ export const aboutPageEn = {
         "Japan-bound candidates — select a drive to view details and register.",
       cardTitle: "Japanese Recruitment Season",
       cardDesc:
-        "JLPT N5 | N4 | JFT A2 complete? Join the free Real Simulated Interview with Mr. KONDO Masahiro.",
+        "JLPT N5 | N4 | JFT A2 complete? Join the free Real Simulated Interview with Mr. Hajime SAITO.",
       cardCta: "View & Register",
-      cardImage: "/career/image.webp",
+      cardImage: "/career/image.png",
       cardImageAlt:
         "KTTI Japanese Recruitment Season poster — Are You Ready?",
     },
@@ -268,9 +268,10 @@ export const aboutPageEn = {
       interviewerLabel: "Interviewer",
       dateLabel: "Date",
       placeLabel: "Place",
-      interviewer: "Mr. KONDO Masahiro",
-      interviewerOrg: "Kawaii Group, Tokyo, Japan",
-      date: "30 September (TBD)",
+      interviewer: "Mr. Hajime SAITO",
+      interviewerOrg:
+        "Founder, Your Japan Career · Educational Collaboration Partner, Kawaii Group",
+      date: "29 October, THU · Starts at 1 PM",
       place:
         "Kawaii Tredmig Training Institute, 26/2, B Block, Aftabnagar, Dhaka",
       freeBadge: "100% FREE",
@@ -358,7 +359,7 @@ export const aboutPageEn = {
       successNext: [
         "Admissions team আপনার profile ও language level review করবে।",
         "আপনার দেওয়া mobile number-এ confirmation call বা SMS পাবেন।",
-        "30 September (TBD) — Aftabnagar campus interview-এর জন্য প্রস্তুত থাকুন।",
+        "29 October, THU · 1 PM — Aftabnagar campus interview-এর জন্য প্রস্তুত থাকুন।",
         "Event day-তে JLPT / JFT certificate ও printed CV সাথে আনবেন।",
         "Category-specific guidance ও CV workshop অন্তর্ভুক্ত — 100% FREE।",
       ],
@@ -652,9 +653,9 @@ export const aboutPageJp = {
       subhead: "日本を目指す方向けの募集。詳細と登録は各カードから。",
       cardTitle: "日本採用シーズン",
       cardDesc:
-        "JLPT N5 | N4 | JFT A2完了済みですか？KONDO Masahiro氏による無料リアル模擬面接に参加。",
+        "JLPT N5 | N4 | JFT A2完了済みですか？Hajime SAITO氏による無料リアル模擬面接に参加。",
       cardCta: "詳細・登録",
-      cardImage: "/career/image.webp",
+      cardImage: "/career/image.png",
       cardImageAlt: "KTTI日本採用シーズンポスター",
     },
     event: {
@@ -663,9 +664,10 @@ export const aboutPageJp = {
       interviewerLabel: "面接官",
       dateLabel: "日付",
       placeLabel: "場所",
-      interviewer: "Mr. KONDO Masahiro",
-      interviewerOrg: "Kawaii Group, Tokyo, Japan",
-      date: "9月30日（予定）",
+      interviewer: "Mr. Hajime SAITO",
+      interviewerOrg:
+        "Founder, Your Japan Career · Educational Collaboration Partner, Kawaii Group",
+      date: "10月29日（木）· 午後1時開始",
       place:
         "Kawaii Tredmig Training Institute, 26/2, B Block, Aftabnagar, Dhaka",
       freeBadge: "完全無料",
@@ -752,7 +754,7 @@ export const aboutPageJp = {
       successNext: [
         "Admissions team আপনার profile ও language level review করবে।",
         "আপনার দেওয়া mobile number-এ confirmation call বা SMS পাবেন।",
-        "30 September (TBD) — Aftabnagar campus interview-এর জন্য প্রস্তুত থাকুন।",
+        "29 October, THU · 1 PM — Aftabnagar campus interview-এর জন্য প্রস্তুত থাকুন।",
         "Event day-তে JLPT / JFT certificate ও printed CV সাথে আনবেন।",
         "Category-specific guidance ও CV workshop অন্তর্ভুক্ত — 100% FREE।",
       ],
@@ -957,7 +959,7 @@ export const aboutPageBn = {
         "জাপানমুখী প্রার্থীদের জন্য সুযোগ — বিস্তারিত ও নিবন্ধনের জন্য একটি ড্রাইভ বেছে নিন।",
       cardTitle: "জাপানিজ রিক্রুটমেন্ট সিজন",
       cardDesc:
-        "JLPT N5 | N4 | JFT A2 সম্পন্ন? Mr. KONDO Masahiro-এর সাথে বিনামূল্যে Real Simulated Interview-এ যোগ দিন।",
+        "JLPT N5 | N4 | JFT A2 সম্পন্ন? Mr. Hajime SAITO-এর সাথে বিনামূল্যে Real Simulated Interview-এ যোগ দিন।",
       cardCta: "দেখুন ও নিবন্ধন করুন",
     },
     event: {
