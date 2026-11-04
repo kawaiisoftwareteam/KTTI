@@ -30,52 +30,21 @@ export const BASIC_JP_COURSES = [
 
 export const BASIC_JP_PHONES = ["01781647247", "01847275911"] as const;
 
-export function submitBasicJapaneseCourse(data: {
+export async function submitBasicJapaneseCourse(data: {
   name: string;
   mobile: string;
   area: string;
   course: string;
 }): Promise<void> {
-  return new Promise((resolve) => {
-    const iframeName = "ktti_basic_jp_sink";
-    let iframe = document.querySelector<HTMLIFrameElement>(
-      `iframe[name="${iframeName}"]`
-    );
-    if (!iframe) {
-      iframe = document.createElement("iframe");
-      iframe.name = iframeName;
-      iframe.title = "Form submission";
-      iframe.setAttribute("aria-hidden", "true");
-      iframe.tabIndex = -1;
-      iframe.style.cssText =
-        "position:fixed;width:0;height:0;border:0;left:0;top:0;opacity:0;pointer-events:none;";
-      document.body.appendChild(iframe);
-    }
+  const body = new FormData();
+  body.set(BASIC_JP_ENTRIES.name, data.name);
+  body.set(BASIC_JP_ENTRIES.mobile, data.mobile);
+  body.set(BASIC_JP_ENTRIES.area, data.area);
+  body.set(BASIC_JP_ENTRIES.course, data.course);
 
-    const form = document.createElement("form");
-    form.action = BASIC_JP_FORM_ACTION;
-    form.method = "POST";
-    form.target = iframeName;
-    form.style.cssText = "position:fixed;left:0;top:0;width:0;height:0;opacity:0;";
-
-    const payload: Record<string, string> = {
-      [BASIC_JP_ENTRIES.name]: data.name,
-      [BASIC_JP_ENTRIES.mobile]: data.mobile,
-      [BASIC_JP_ENTRIES.area]: data.area,
-      [BASIC_JP_ENTRIES.course]: data.course,
-    };
-
-    for (const [name, value] of Object.entries(payload)) {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = name;
-      input.value = value;
-      form.appendChild(input);
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
-    window.setTimeout(resolve, 600);
+  await fetch(BASIC_JP_FORM_ACTION, {
+    method: "POST",
+    mode: "no-cors",
+    body,
   });
 }

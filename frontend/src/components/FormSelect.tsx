@@ -68,15 +68,16 @@ export default function FormSelect({
         {required ? " *" : ""}
       </label>
 
-      {/* Native input for HTML5 required + form serialization */}
+      {/* Keep required input in-flow (not clipped) so browser can show validation UI */}
       <input
         id={selectId}
         tabIndex={-1}
-        aria-hidden
         required={required}
         value={value}
         onChange={() => undefined}
-        className="sr-only"
+        onInvalid={() => setOpen(true)}
+        className="absolute inset-x-0 top-8 h-11 w-full opacity-0 pointer-events-none"
+        aria-hidden
       />
 
       <button
@@ -84,7 +85,7 @@ export default function FormSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={`w-full flex items-center justify-between gap-3 border bg-white px-4 py-3 text-left text-sm transition-colors ${
+        className={`relative w-full flex items-center justify-between gap-3 border bg-white px-4 py-3 text-left text-sm transition-colors ${
           open
             ? "border-[#A71728] ring-1 ring-[#A71728]/30"
             : "border-[#E8D5D5] hover:border-[#A71728]/50"

@@ -7,7 +7,11 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import ApplyModal from "@/components/ApplyModal";
+import dynamic from "next/dynamic";
+
+const ApplyModal = dynamic(() => import("@/components/ApplyModal"), {
+  ssr: false,
+});
 
 type ApplyModalContextValue = {
   openApply: (programName?: string) => void;
@@ -20,11 +24,13 @@ const DEFAULT_PROGRAM = "SSW Specialized Skill Training";
 export function ApplyModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [defaultProgram, setDefaultProgram] = useState(DEFAULT_PROGRAM);
+  const [mounted, setMounted] = useState(false);
 
   const openApply = useCallback((programName?: string) => {
     if (programName) {
       setDefaultProgram(programName);
     }
+    setMounted(true);
     setIsOpen(true);
   }, []);
 
@@ -37,11 +43,13 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
   return (
     <ApplyModalContext.Provider value={value}>
       {children}
-      <ApplyModal
-        isOpen={isOpen}
-        onClose={closeApply}
-        defaultProgram={defaultProgram}
-      />
+      {mounted && (
+        <ApplyModal
+          isOpen={isOpen}
+          onClose={closeApply}
+          defaultProgram={defaultProgram}
+        />
+      )}
     </ApplyModalContext.Provider>
   );
 }

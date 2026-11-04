@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DoorButton from "@/components/DoorButton";
 import DoorLink from "@/components/DoorLink";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -9,8 +9,17 @@ interface HeroProps {
   onOpenApply?: () => void;
 }
 
+const HERO_VIDEO = "/video_has_still_show_text_this.mp4";
+
 export default function Hero({ onOpenApply }: HeroProps) {
   const { t, lang } = useLanguage();
+  // ponytail: defer 5.4MB autoplay until after first paint; compress video if LCP still slow
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setVideoSrc(HERO_VIDEO), 200);
+    return () => window.clearTimeout(id);
+  }, []);
 
   return (
     <section
@@ -18,15 +27,17 @@ export default function Hero({ onOpenApply }: HeroProps) {
       className="relative w-full min-h-[70vh] lg:min-h-screen bg-black overflow-hidden flex items-start justify-center"
     >
       <div className="absolute inset-0">
-        <video
-          src="/video_has_still_show_text_this.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover pointer-events-none select-none"
-        />
+        {videoSrc && (
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+            className="w-full h-full object-cover pointer-events-none select-none"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/40" />
       </div>
 

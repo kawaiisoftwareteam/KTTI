@@ -1,4 +1,4 @@
-/** Bangladesh districts — matches Google Form order exactly */
+/** Bangladesh districts — used by category UI / other pages */
 export const BD_DISTRICTS = [
   "Dhaka",
   "Bandarban",
@@ -67,23 +67,22 @@ export const BD_DISTRICTS = [
   "Thakurgaon",
 ] as const;
 
+/** https://forms.gle/hc59V2kAdaZ4HosM8 */
 export const RECRUITMENT_FORM_URL =
-  "https://forms.gle/EW5o5QzyCw1XW6Jn7";
+  "https://forms.gle/hc59V2kAdaZ4HosM8";
 
-/** Direct formResponse endpoint — submissions land in the linked Google Sheet/Form */
 export const RECRUITMENT_FORM_ACTION =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfzy2R8vU7Wpr20qewAdhhD30TkCmLIrLDQbUJ__U3c07wxwQ/formResponse";
+  "https://docs.google.com/forms/d/e/1FAIpQLSdpwdcYfzCH0ozqczKK0NzvuF3akOEtQb_j2L_k_KxM5XoF2w/formResponse";
 
 export const RECRUITMENT_ENTRIES = {
-  fullName: "entry.523340852",
-  mobile: "entry.455679199",
-  district: "entry.622208344",
-  jpCourse: "entry.535277445",
-  jpLevel: "entry.548108420",
-  skillAssessment: "entry.203016419",
-  interviewInterest: "entry.511776863",
-  category: "entry.1126159593",
-  practicalReady: "entry.817581516",
+  fullName: "entry.127653719",
+  mobile: "entry.648325870",
+  whatsapp: "entry.1138225617",
+  jpCourse: "entry.113003442",
+  jpLevel: "entry.322069157",
+  skillAssessment: "entry.835121160",
+  interviewInterest: "entry.546532078",
+  practicalReady: "entry.683037630",
 } as const;
 
 /** Exact option strings expected by the Google Form (must stay English) */
@@ -108,65 +107,30 @@ export type CareerCategoryId =
   | "aviation"
   | "others";
 
-export function submitRecruitmentToGoogleForm(data: {
+export async function submitRecruitmentToGoogleForm(data: {
   fullName: string;
   mobile: string;
-  district: string;
+  whatsapp: string;
   jpCourse: string;
   jpLevel: string;
   skillAssessment: string;
   interviewInterest: string;
-  category: string;
   practicalReady: string;
 }): Promise<void> {
-  return new Promise((resolve) => {
-    const iframeName = "ktti_recruitment_sink";
-    let iframe = document.querySelector<HTMLIFrameElement>(
-      `iframe[name="${iframeName}"]`
-    );
-    if (!iframe) {
-      iframe = document.createElement("iframe");
-      iframe.name = iframeName;
-      iframe.title = "Form submission";
-      iframe.setAttribute("aria-hidden", "true");
-      iframe.tabIndex = -1;
-      // Fixed + zero size — avoids display:none focus/scroll jumps
-      iframe.style.cssText =
-        "position:fixed;width:0;height:0;border:0;left:0;top:0;opacity:0;pointer-events:none;";
-      document.body.appendChild(iframe);
-    }
+  const body = new FormData();
+  body.set(RECRUITMENT_ENTRIES.fullName, data.fullName);
+  body.set(RECRUITMENT_ENTRIES.mobile, data.mobile);
+  body.set(RECRUITMENT_ENTRIES.whatsapp, data.whatsapp);
+  body.set(RECRUITMENT_ENTRIES.jpCourse, data.jpCourse);
+  body.set(RECRUITMENT_ENTRIES.jpLevel, data.jpLevel);
+  body.set(RECRUITMENT_ENTRIES.skillAssessment, data.skillAssessment);
+  body.set(RECRUITMENT_ENTRIES.interviewInterest, data.interviewInterest);
+  body.set(RECRUITMENT_ENTRIES.practicalReady, data.practicalReady);
 
-    const form = document.createElement("form");
-    form.action = RECRUITMENT_FORM_ACTION;
-    form.method = "POST";
-    form.target = iframeName;
-    form.style.cssText = "position:fixed;left:0;top:0;width:0;height:0;opacity:0;";
-
-    const payload: Record<string, string> = {
-      [RECRUITMENT_ENTRIES.fullName]: data.fullName,
-      [RECRUITMENT_ENTRIES.mobile]: data.mobile,
-      [RECRUITMENT_ENTRIES.district]: data.district,
-      [RECRUITMENT_ENTRIES.jpCourse]: data.jpCourse,
-      [RECRUITMENT_ENTRIES.jpLevel]: data.jpLevel,
-      [RECRUITMENT_ENTRIES.skillAssessment]: data.skillAssessment,
-      [RECRUITMENT_ENTRIES.interviewInterest]: data.interviewInterest,
-      [RECRUITMENT_ENTRIES.category]: data.category,
-      [RECRUITMENT_ENTRIES.practicalReady]: data.practicalReady,
-    };
-
-    for (const [name, value] of Object.entries(payload)) {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = name;
-      input.value = value;
-      form.appendChild(input);
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
-
-    // Google Forms does not return CORS; treat fire-and-forget as success.
-    window.setTimeout(resolve, 600);
+  // no-cors: Google Forms blocks reading the response; request still lands in the sheet.
+  await fetch(RECRUITMENT_FORM_ACTION, {
+    method: "POST",
+    mode: "no-cors",
+    body,
   });
 }

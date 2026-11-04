@@ -46,7 +46,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;700&family=Jost:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
       </head>

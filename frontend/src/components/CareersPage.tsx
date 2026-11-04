@@ -18,7 +18,6 @@ import DoorLink from "@/components/DoorLink";
 import FormSelect from "@/components/FormSelect";
 import { useLanguage } from "@/i18n/LanguageContext";
 import {
-  BD_DISTRICTS,
   submitRecruitmentToGoogleForm,
   type CareerCategoryId,
 } from "@/data/recruitment";
@@ -32,14 +31,6 @@ const CATEGORY_ICONS: Record<
   "nursing-care": HeartPulse,
   aviation: Plane,
   others: Plus,
-};
-
-const CATEGORY_TO_FORM: Record<CareerCategoryId, string> = {
-  "building-cleaning": "Building Cleaning",
-  construction: "Construction",
-  "nursing-care": "Caregiver",
-  aviation: "Aviation",
-  others: "Others",
 };
 
 const fieldClass =
@@ -62,12 +53,11 @@ export default function CareersPage() {
 
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [district, setDistrict] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [jpCourse, setJpCourse] = useState("");
   const [jpLevel, setJpLevel] = useState("");
   const [skillAssessment, setSkillAssessment] = useState("");
   const [interviewInterest, setInterviewInterest] = useState("");
-  const [category, setCategory] = useState("");
   const [practicalReady, setPracticalReady] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -81,8 +71,7 @@ export default function CareersPage() {
     return () => window.cancelAnimationFrame(id);
   }, [isSubmitted]);
 
-  const selectCategory = (id: CareerCategoryId) => {
-    setCategory(CATEGORY_TO_FORM[id]);
+  const selectCategory = (_id: CareerCategoryId) => {
     document
       .getElementById(F.id)
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -95,15 +84,16 @@ export default function CareersPage() {
       await submitRecruitmentToGoogleForm({
         fullName,
         mobile,
-        district,
+        whatsapp,
         jpCourse,
         jpLevel,
         skillAssessment,
         interviewInterest,
-        category,
         practicalReady,
       });
       setIsSubmitted(true);
+    } catch {
+      window.alert("Submission failed. Check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -246,18 +236,12 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
             {C.categories.map((cat) => {
               const Icon = CATEGORY_ICONS[cat.id as CareerCategoryId];
-              const selected =
-                category === CATEGORY_TO_FORM[cat.id as CareerCategoryId];
               return (
                 <button
                   key={cat.id}
                   type="button"
                   onClick={() => selectCategory(cat.id as CareerCategoryId)}
-                  className={`group text-left border bg-white p-4 sm:p-5 lg:p-6 transition-colors ${
-                    selected
-                      ? "border-[#A71728] ring-1 ring-[#A71728]"
-                      : "border-neutral-200 hover:border-[#A71728]/50"
-                  }`}
+                  className="group text-left border bg-white p-4 sm:p-5 lg:p-6 transition-colors border-neutral-200 hover:border-[#A71728]/50"
                 >
                   <div className="flex items-start justify-between gap-3 mb-3 sm:mb-4">
                     <span className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-neutral-200 bg-[#F8F9FA] text-[#A71728] group-hover:bg-[#A71728] group-hover:text-white group-hover:border-[#A71728] transition-colors">
@@ -359,16 +343,20 @@ export default function CareersPage() {
                 />
               </div>
 
-              <FormSelect
-                id="district"
-                label={F.district}
-                required
-                searchable
-                value={district}
-                onChange={setDistrict}
-                placeholder={F.districtPlaceholder}
-                options={BD_DISTRICTS.map((d) => ({ value: d, label: d }))}
-              />
+              <div>
+                <label htmlFor="whatsapp" className={labelClass}>
+                  {F.whatsapp} *
+                </label>
+                <input
+                  id="whatsapp"
+                  required
+                  type="tel"
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  className={fieldClass}
+                  autoComplete="tel"
+                />
+              </div>
 
               <fieldset>
                 <legend className={labelClass}>{F.jpCourse} *</legend>
@@ -461,18 +449,6 @@ export default function CareersPage() {
                   ))}
                 </div>
               </fieldset>
-
-              <FormSelect
-                id="category"
-                label={F.category}
-                required
-                value={category}
-                onChange={setCategory}
-                options={F.categoryOptions.map((opt) => ({
-                  value: opt,
-                  label: opt,
-                }))}
-              />
 
               <fieldset>
                 <legend className={labelClass}>{F.practicalReady} *</legend>
