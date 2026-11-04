@@ -13,16 +13,16 @@ export default function JapanBanner({ onOpenApply }: JapanBannerProps) {
   const { t } = useLanguage();
   return (
     <section className="relative w-full py-16 lg:py-20 bg-neutral-100 text-neutral-900 overflow-hidden flex items-center justify-center border-y border-neutral-200">
-      {/* Background Image with Light Overlay */}
+      {/* Local CSS atmosphere — no third-party image fetch */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-105 opacity-15"
+        className="absolute inset-0 opacity-[0.45] pointer-events-none"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fm=webp&fit=crop&w=1200&q=60')`,
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0)",
+          backgroundSize: "24px 24px",
         }}
       />
-      
-      {/* Subtle Light Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white" />
       <div className="absolute inset-0 bg-[#A71728]/5" />
 
       {/* Central Content */}

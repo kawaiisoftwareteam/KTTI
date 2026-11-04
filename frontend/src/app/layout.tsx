@@ -45,10 +45,15 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;700&family=Jost:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        {/* Preload hero poster for fast LCP; fonts load non-blocking via FontLoader */}
+        <link rel="preload" as="image" href="/hero-poster.webp" type="image/webp" />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700;900&display=swap"
+          />
+        </noscript>
       </head>
       <body
         className="min-h-screen bg-[#FFFFFF] text-[#111111] font-sans selection:bg-[#A71728] selection:text-white"

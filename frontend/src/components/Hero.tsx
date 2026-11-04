@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DoorButton from "@/components/DoorButton";
 import DoorLink from "@/components/DoorLink";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -9,17 +9,51 @@ interface HeroProps {
   onOpenApply?: () => void;
 }
 
-const HERO_VIDEO = "/video_has_still_show_text_this.mp4";
+const HERO_POSTER = "/hero-poster.webp";
+const HERO_VIDEO = "/hero-bg.mp4";
+const HERO_VIDEO_SM = "/hero-bg-sm.mp4";
 
 export default function Hero({ onOpenApply }: HeroProps) {
   const { t, lang } = useLanguage();
-  // ponytail: defer 5.4MB autoplay until after first paint; compress video if LCP still slow
-  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const id = window.setTimeout(() => setVideoSrc(HERO_VIDEO), 200);
-    return () => window.clearTimeout(id);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    let cancelled = false;
+    const start = () => {
+      if (!cancelled) setShouldLoadVideo(true);
+    };
+
+    // Wait for first paint + idle so LCP can be the poster/text, not the MP4.
+    let ricId: number | undefined;
+    let timeoutId: number | undefined;
+
+    if (typeof window.requestIdleCallback === "function") {
+      ricId = window.requestIdleCallback(start, { timeout: 1500 });
+    } else {
+      timeoutId = window.setTimeout(start, 400);
+    }
+
+    return () => {
+      cancelled = true;
+      if (ricId != null) window.cancelIdleCallback?.(ricId);
+      if (timeoutId != null) window.clearTimeout(timeoutId);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+    const el = videoRef.current;
+    if (!el) return;
+    const play = () => {
+      void el.play().catch(() => {});
+    };
+    if (el.readyState >= 2) play();
+    else el.addEventListener("loadeddata", play, { once: true });
+  }, [shouldLoadVideo]);
 
   return (
     <section
@@ -27,16 +61,34 @@ export default function Hero({ onOpenApply }: HeroProps) {
       className="relative w-full min-h-[70vh] lg:min-h-screen bg-black overflow-hidden flex items-start justify-center"
     >
       <div className="absolute inset-0">
-        {videoSrc && (
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={HERO_POSTER}
+          alt=""
+          width={1280}
+          height={720}
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+        />
+        {shouldLoadVideo && (
           <video
-            src={videoSrc}
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
-            preload="none"
-            className="w-full h-full object-cover pointer-events-none select-none"
-          />
+            preload="metadata"
+            poster={HERO_POSTER}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+          >
+            <source
+              src={HERO_VIDEO_SM}
+              type="video/mp4"
+              media="(max-width: 767px)"
+            />
+            <source src={HERO_VIDEO} type="video/mp4" />
+          </video>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/40" />
       </div>

@@ -91,7 +91,53 @@ export default function CareersIndexPage() {
             backgroundSize: "56px 36px",
           }}
         />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+          {/* Upcoming: Narail seminar — featured first while active */}
+          <Link
+            href="/careers/narail-seminar/"
+            className="group relative grid grid-cols-1 md:grid-cols-12 w-full max-w-5xl mx-auto overflow-hidden bg-white shadow-[0_1px_0_rgba(167,23,40,0.15)] transition-shadow hover:shadow-[0_12px_40px_rgba(167,23,40,0.12)]"
+          >
+            <span
+              className="absolute inset-0 pointer-events-none border-2 border-[#A71728]/35 group-hover:border-[#A71728]/60 transition-colors z-20"
+              aria-hidden
+            />
+            <div className="relative md:col-span-5 w-full bg-[#FAF7F5]">
+              <Image
+                src="/career/narail-seminar-ad.webp"
+                alt="Japan Education & Career Roadmap Seminar 2026 — নড়াইল"
+                width={1080}
+                height={1080}
+                sizes="(max-width: 768px) 100vw, 420px"
+                className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]"
+                priority
+              />
+            </div>
+            <div className="relative md:col-span-7 flex flex-col justify-center p-5 sm:p-8 lg:p-11 space-y-3 sm:space-y-4 bg-[linear-gradient(180deg,#FFFFFF_0%,#FFF8F7_100%)]">
+              <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-[#A71728] hidden md:block" aria-hidden />
+              <span className="inline-flex w-fit items-center px-3 py-1 bg-[#A71728] text-white text-[10px] font-black tracking-[0.2em] uppercase">
+                Free Seminar
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 leading-snug group-hover:text-[#A71728] transition-colors">
+                Japan Education & Career Roadmap Seminar 2026
+              </h2>
+              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-xl">
+                নড়াইল · যশোর · মাগুরা · খুলনা — Student Visa, SSW ও Japanese
+                language roadmap। Chairman + Mr. Hajime Saito।
+              </p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-500 border-t border-[#E8D5D5] pt-4">
+                <span>১১ নভেম্বর ২০২৬ · সকাল ১০টা</span>
+                <span className="text-[#A71728]/40" aria-hidden>
+                  |
+                </span>
+                <span>জেলা শিল্পকলা একাডেমি, নড়াইল</span>
+              </div>
+              <span className="inline-flex items-center gap-2 pt-1 text-sm font-bold tracking-[0.15em] uppercase text-[#A71728]">
+                Register Now
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
+            </div>
+          </Link>
+
           <Link
             href="/careers/japan-recruitment/"
             className="group relative grid grid-cols-1 md:grid-cols-12 w-full max-w-5xl mx-auto overflow-hidden bg-white shadow-[0_1px_0_rgba(167,23,40,0.15)] transition-shadow hover:shadow-[0_12px_40px_rgba(167,23,40,0.12)]"

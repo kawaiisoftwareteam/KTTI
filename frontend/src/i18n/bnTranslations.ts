@@ -41,6 +41,8 @@ export const bnTranslations = {
     nonResidential: "নন-রেসিডেন্সিয়াল কোর্স",
     teachers: "আমাদের শিক্ষক",
     jobPlacement: "জাপান জব প্লেসমেন্ট",
+    japanRecruitment: "রিক্রুটমেন্ট সিজন",
+    narailSeminar: "নড়াইল সেমিনার ২০২৬",
     generateCv: "CV তৈরি",
     admission: "ভর্তি",
     dhakaTokyo: "ঢাকা · টোকিও",

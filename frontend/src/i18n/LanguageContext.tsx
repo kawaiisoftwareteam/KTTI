@@ -9,7 +9,6 @@ import React, {
   useState,
 } from "react";
 import { translations, type Lang, type Translations } from "./translations";
-import { bnTranslations } from "./bnTranslations";
 
 type LanguageContextValue = {
   lang: Lang;
@@ -21,20 +20,26 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const STORAGE_KEY = "ktti-lang";
 
-function getTranslations(lang: Lang): Translations {
-  if (lang === "bn") return bnTranslations;
-  if (lang === "jp") return translations.jp as unknown as Translations;
-  return translations.en;
-}
-
 function htmlLang(lang: Lang) {
   if (lang === "jp") return "ja";
   if (lang === "bn") return "bn";
   return "en";
 }
 
+async function loadTranslations(lang: Lang): Promise<Translations> {
+  if (lang === "bn") {
+    const { bnTranslations } = await import("./bnTranslations");
+    return bnTranslations;
+  }
+  if (lang === "jp") {
+    return translations.jp as unknown as Translations;
+  }
+  return translations.en;
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
+  const [t, setT] = useState<Translations>(translations.en);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
@@ -46,6 +51,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = htmlLang(lang);
     document.documentElement.dataset.lang = lang;
+    let cancelled = false;
+    void loadTranslations(lang).then((pack) => {
+      if (!cancelled) setT(pack);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [lang]);
 
   const setLang = useCallback((next: Lang) => {
@@ -57,9 +69,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     () => ({
       lang,
       setLang,
-      t: getTranslations(lang),
+      t,
     }),
-    [lang, setLang]
+    [lang, setLang, t]
   );
 
   return (

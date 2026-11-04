@@ -71,7 +71,11 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
     if (!pathname || isHome) return null;
     if (pathname.startsWith("/about") || pathname.startsWith("/leadership"))
       return "about";
-    if (pathname.startsWith("/careers")) return "careers";
+    if (
+      pathname.startsWith("/careers") ||
+      pathname.startsWith("/japan-job-placement")
+    )
+      return "jobs";
     if (pathname.startsWith("/courses")) return "programs";
     if (pathname.startsWith("/ssw")) return "ssw";
     if (pathname.startsWith("/japanese")) return "japanese";
