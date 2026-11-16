@@ -43,7 +43,7 @@ const LangToggle = ({ variant }: { variant: "dark" | "light" }) => {
             key={code}
             type="button"
             onClick={() => setLang(code)}
-            className={`relative px-3.5 py-1.5 text-[11px] font-bold tracking-widest uppercase !rounded-full transition-all duration-300 ${
+            className={`relative px-2 min-[400px]:px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[10px] sm:text-[11px] font-bold tracking-wider sm:tracking-widest uppercase !rounded-full transition-all duration-300 ${
               isActive
                 ? isDark
                   ? "text-neutral-900 bg-white shadow-sm"
@@ -76,6 +76,8 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       pathname.startsWith("/japan-job-placement")
     )
       return "jobs";
+    if (pathname.startsWith("/courses/japanese-language-courses"))
+      return "japanese-courses";
     if (pathname.startsWith("/courses")) return "programs";
     if (pathname.startsWith("/ssw")) return "ssw";
     if (pathname.startsWith("/japanese")) return "japanese";
@@ -86,8 +88,18 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
   })();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState(routeActiveId ?? "home");
+
+  const setMobileMenu = (open: boolean) => {
+    setMobileMenuOpen(open);
+    if (open) {
+      setMobileAccordion(routeActiveId || null);
+    } else {
+      setMobileAccordion(null);
+    }
+  };
 
   useEffect(() => {
     if (!isHome) {
@@ -136,6 +148,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
 
   useEffect(() => {
     setMobileMenuOpen(false);
+    setMobileAccordion(null);
     setOpenMenu(null);
   }, [pathname]);
 
@@ -171,6 +184,33 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
         { label: t.nav.studentVisaCourse, href: "/courses/student-visa-preparation/" },
         { label: t.nav.weeklyMock, href: "/courses/weekly-mock-test/" },
         { label: t.nav.onlineMock, href: "/courses/online-mock-interview/" },
+      ],
+    },
+    {
+      label: t.nav.japaneseCoursesMenu,
+      href: "/courses/japanese-language-courses/",
+      id: "japanese-courses",
+      children: [
+        {
+          label: t.nav.japaneseCoursesAll,
+          href: "/courses/japanese-language-courses/",
+        },
+        {
+          label: t.nav.japaneseAfternoon,
+          href: "/courses/japanese-language-courses/afternoon/",
+        },
+        {
+          label: t.nav.japaneseEvening,
+          href: "/courses/japanese-language-courses/evening/",
+        },
+        {
+          label: t.nav.japaneseOnline,
+          href: "/courses/japanese-language-courses/online/",
+        },
+        {
+          label: t.nav.japaneseIntensive,
+          href: "/courses/japanese-language-courses/intensive/",
+        },
       ],
     },
     {
@@ -231,7 +271,10 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
                     className="bg-white border border-neutral-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] py-1.5"
                   >
                     {link.children.map((child) => {
-                      const isChildActive = pathname === child.href || pathname === child.href.replace(/\/$/, "");
+                      const childPath = child.href.split("?")[0].split("#")[0];
+                      const normalizedPath = pathname?.replace(/\/$/, "") ?? "";
+                      const normalizedChild = childPath.replace(/\/$/, "");
+                      const isChildActive = normalizedPath === normalizedChild;
                       return (
                         <Link
                           key={child.href}
@@ -305,12 +348,12 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
         </div>
       </div>
 
-      <div className={`h-16 sm:h-[4.25rem] flex items-center justify-between gap-4 px-4 sm:px-6 xl:px-8 border-b border-white/40 ${mobileMenuOpen ? "bg-white" : "bg-white/65 backdrop-blur-2xl"}`}>
+      <div className={`h-14 min-[400px]:h-16 sm:h-[4.25rem] flex items-center justify-between gap-2 min-[400px]:gap-3 sm:gap-4 px-3 min-[400px]:px-4 sm:px-6 xl:px-8 border-b border-white/40 ${mobileMenuOpen ? "bg-white" : "bg-white/65 backdrop-blur-2xl"}`}>
         <Link
           href="/"
-          className="flex items-center select-none shrink-0"
+          className="flex items-center select-none min-w-0 shrink"
           aria-label="KTTI — Kawaii Tredmig Training Institute"
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={() => setMobileMenu(false)}
         >
           <Image
             src="/ktti-logo.svg"
@@ -318,7 +361,7 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
             width={400}
             height={132}
             priority
-            className="h-9 sm:h-10 w-auto max-w-[42vw] object-contain object-left"
+            className="h-7 min-[400px]:h-9 sm:h-10 w-auto max-w-[46vw] min-[400px]:max-w-[40vw] sm:max-w-none object-contain object-left"
             style={{ width: "auto" }}
           />
         </Link>
@@ -327,17 +370,17 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
           {renderLinks()}
         </nav>
 
-        <div className="flex lg:hidden items-center gap-2 shrink-0">
+        <div className="flex lg:hidden items-center gap-1.5 min-[400px]:gap-2 shrink-0">
           <LangToggle variant="light" />
           <Link
             href="/admission"
-            className="hidden min-[400px]:inline-flex px-3 py-2 text-xs font-bold uppercase tracking-wider bg-[#A71728] text-white"
+            className="hidden sm:inline-flex px-3 py-2 text-xs font-bold uppercase tracking-wider bg-[#A71728] text-white"
           >
             {t.nav.admission}
           </Link>
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((o) => !o)}
+            onClick={() => setMobileMenu(!mobileMenuOpen)}
             className="p-2 text-neutral-900 border border-neutral-200"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
@@ -348,45 +391,92 @@ export default function Navbar({ onOpenApply }: NavbarProps) {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-16 sm:top-[4.25rem] bottom-0 z-40 overflow-y-auto bg-white">
+        <div className="lg:hidden fixed inset-x-0 top-14 min-[400px]:top-16 sm:top-[4.25rem] bottom-0 z-40 overflow-y-auto bg-white">
           <div className="px-4 py-2 pb-8">
             <div className="flex flex-col">
-              {navLinks.map((link) => (
-                <div key={link.id}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-3 text-[15px] font-medium ${
-                      activeSection === link.id
-                        ? "text-[#A71728]"
-                        : "text-neutral-800"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                  {link.children && (
-                    <div className="ml-3 mb-2 border-l border-neutral-200 pl-3">
-                      {link.children.map((child) => {
-                        const isChildActive = pathname === child.href || pathname === child.href.replace(/\/$/, "");
-                        return (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`block py-2 text-sm ${
-                              isChildActive
-                                ? "text-[#A71728] font-bold"
-                                : "text-neutral-600"
-                            }`}
-                          >
-                            {child.label}
-                          </Link>
-                        );
-                      })}
+              {navLinks.map((link) => {
+                const hasChildren = Boolean(link.children?.length);
+                const isExpanded = mobileAccordion === link.id;
+                const isActive = activeSection === link.id;
+
+                if (!hasChildren) {
+                  return (
+                    <Link
+                      key={link.id}
+                      href={link.href}
+                      onClick={() => setMobileMenu(false)}
+                      className={`block py-3 text-[15px] font-medium ${
+                        isActive ? "text-[#A71728]" : "text-neutral-800"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <div key={link.id} className="border-b border-neutral-100">
+                    <div className="flex items-stretch">
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileMenu(false)}
+                        className={`flex-1 py-3 text-[15px] font-medium min-w-0 ${
+                          isActive ? "text-[#A71728]" : "text-neutral-800"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                      <button
+                        type="button"
+                        className="shrink-0 px-3 text-neutral-500 hover:text-[#A71728]"
+                        aria-expanded={isExpanded}
+                        aria-controls={`mobile-nav-${link.id}`}
+                        aria-label={`${link.label} submenu`}
+                        onClick={() =>
+                          setMobileAccordion(isExpanded ? null : link.id)
+                        }
+                      >
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform ${
+                            isExpanded ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
                     </div>
-                  )}
-                </div>
-              ))}
+                    {isExpanded && (
+                      <div
+                        id={`mobile-nav-${link.id}`}
+                        className="ml-3 mb-3 border-l border-neutral-200 pl-3"
+                      >
+                        {link.children!.map((child) => {
+                          const childPath = child.href
+                            .split("?")[0]
+                            .split("#")[0];
+                          const normalizedPath =
+                            pathname?.replace(/\/$/, "") ?? "";
+                          const normalizedChild = childPath.replace(/\/$/, "");
+                          const isChildActive =
+                            normalizedPath === normalizedChild;
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              onClick={() => setMobileMenu(false)}
+                              className={`block py-2 text-sm ${
+                                isChildActive
+                                  ? "text-[#A71728] font-bold"
+                                  : "text-neutral-600"
+                              }`}
+                            >
+                              {child.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
